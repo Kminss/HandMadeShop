@@ -1,0 +1,40 @@
+@charset "UTF-8";
+
+fieldset {
+	border: 0;
+}
+/*원하는  위치를  문자열  길이만큼  지정하여  배치하여  설정한다.*/
+legend {
+	position: absolute;
+	left: -9999em;
+}
+
+.signup_table {
+	border-collapse: collapse;
+	table-layout: fixed;
+	width: 500px;
+	height: 400px;
+	margin: 0 auto;
+	color: #000;
+	font-size: 12px;
+	line-heigh: 1.3em;
+	border: 1px solid #eee;
+}
+
+.signup_table th {
+	background: #efefef;
+	border: 1px solid #ccc;
+}
+
+.signup_table td {
+	border: 1px solid #ccc;
+}
+
+.signup_table td input {
+	width: 98%
+}
+
+.form_btn {
+	text-align: center;
+	padding: 30px 0
+}

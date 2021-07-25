@@ -1,0 +1,37 @@
+@charset "UTF-8";
+
+.item_table {
+	float: left;
+}
+
+header {
+	margin: auto; /* header의 양쪽 여백(margin)을 동등하게 맞춤 -> 수평가운데정렬 */
+	width: 1080px;
+	height: 215px;
+	display: flex;
+	align-items: center; /* 하위 요소들 수직 가운데정렬 */
+	justify-content: center; /* 헤더 플렉스 요소 가운데 위치 */
+	position: relative;
+}
+
+#damoaIcon {
+	font-size: 40pt;
+	color: #368AFF;
+	text-decoration: none;
+}
+
+nav {
+	margin: auto; /* header의 양쪽 여백(margin)을 동등하게 맞춤 -> 수평가운데정렬 */
+	padding-bottom: 40px;
+	display: flex;
+	align-items: center; /* 하위 요소들 수직 가운데정렬 */
+	justify-content: center; /* 헤더 플렉스 요소 가운데 위치 */
+	position: relative;
+}
+
+main {
+	min-height: 600px;
+	width: 600px;
+	margin: 0 auto;
+	position: center;
+}

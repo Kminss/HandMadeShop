@@ -5,11 +5,11 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <link rel="stylesheet" type="text/css" href="./css/login.css">
+    <link rel="stylesheet" type="text/css" href="../css/login.css">
   </head>
 
   <body width="100%" height="100%">
-    <form action="./Login.do" method="post" class="loginForm">
+    <form action="./login" method="post" class="loginForm">
       <h2>Login</h2>
       <div class="idForm">
         <input type="text" class="id" name="mId" placeholder="ID">
@@ -23,7 +23,7 @@
       </button>
      
       <div class="bottomText">
-        아이디가 없으신가요? <a href="./SignUpView.do">회원가입</a>
+        아이디가 없으신가요? <a href="./join">회원가입</a>
       </div>
     </form>
   </body>

@@ -1,5 +1,7 @@
 package com.damoa.member.dao;
 
+import java.util.Map;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -17,5 +19,9 @@ public class MemberDAO {
 	
 	public int checkId(String mId) {
 		return sqlSessionTemplate.selectOne("checkId", mId);
+	}
+	
+	public MemberDTO login(Map<String, String> map) {
+		return sqlSessionTemplate.selectOne("login", map);
 	}
 }

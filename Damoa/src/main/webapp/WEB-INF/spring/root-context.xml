@@ -34,7 +34,7 @@
 		<property name="dataSource" ref="dataSource" />
 		<!--Configuration 설정 파일을 연결한다. -->
 		<property name="configLocation"
-			value="classpath:/configuration/memberConfig.xml" />
+			value="classpath:/configuration/Config.xml" />
 			 
 			<!--Mapper 설정 파일을 연결한다. -->
 		<property name="mapperLocations"

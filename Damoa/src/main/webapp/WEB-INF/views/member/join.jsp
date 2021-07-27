@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>회원가입</title>
 <link rel="stylesheet" type="text/css" href="./css/join.css">
 <link rel="stylesheet" type="text/css" href="./css/jquery-ui.min.css">
@@ -11,8 +11,7 @@
 <script type="text/javascript" src="./js/jquery-3.5.1.min.js"></script>
 <script type="text/javascript" src="./js/jquery-migrate-3.3.2.js"></script>
 <script type="text/javascript" src="./js/jquery-ui.min.js"></script>
-
- <script type="text/javascript" src="./js/validation/jquery.validate.min.js"></script>
+<script type="text/javascript" src="./js/validation/jquery.validate.min.js"></script>
 <script type="text/javascript" src="./js/validation/additional-methods.min.js"></script>
 <script type="text/javascript" src="./js/validation/messages_ko.min.js"></script>
 <script type="text/javascript" src="./js/validation/validation.js"></script> 
@@ -34,10 +33,7 @@
 					<th scope="row"><label for="mPwc">패스워드확인</label></th>
 					<td><input type="password" id="mPwc" name="mPwc" /></td>
 				</tr>
-				<tr>
-					<th scope="row"><label for="mName">이름</label></th>
-					<td><input type="text" id="mName" name="mName" /></td>
-				</tr>
+				
 				<tr>
 					<th scope="row"><label for="mBirth">생년월일</label></th>
 					<td><input type="text" id="mBirth" name="mBirth" /></td>
@@ -56,7 +52,7 @@
 				</tr>
 			</table>
 			<div class="form_btn">
-				<input type="submit" value="회원가입" /> <input type="reset"
+				<input type="submit" >회원가입 <input type="reset"
 					value="다시작성" />
 			</div>
 		</fieldset>

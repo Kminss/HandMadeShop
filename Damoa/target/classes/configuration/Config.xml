@@ -2,9 +2,8 @@
 <!DOCTYPE configuration
 PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-	<!--별칭을 설정한다. -->
 	<typeAliases>
-		<typeAlias alias="HandDTO"
-			type="com.damoa.hand.dto.HandDTO" />
+		<typeAlias alias="HandDTO" type="com.damoa.hand.dto.HandDTO" />
+		<typeAlias alias="MemberDTO" type="com.damoa.member.dto.MemberDTO"/>
 	</typeAliases>
 </configuration>

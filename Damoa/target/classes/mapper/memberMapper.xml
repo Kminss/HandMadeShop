@@ -12,8 +12,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
 		values
 		(#{mId},#{mName},#{mNo},#{mPw},#{mPh},#{mEmail},#{mAddr},#{mBirth},sysdate,0)
 	</insert>
-	<select id="checkId" parameterType="String" resultType="int">
-		select count(*) from member where mId=#{mId}
+	<select id="checkId" parameterType="String" resultType="boolean">
+		select count(*)
+		from member 
+		where mId=#{mId}
 	</select>
 	
 	<select id="login" parameterType="Map" resultType="MemberDTO">

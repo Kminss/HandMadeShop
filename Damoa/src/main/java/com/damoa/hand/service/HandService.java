@@ -1,18 +1,16 @@
 package com.damoa.hand.service;
 
-import java.util.List;
+import java.util.List; 
 import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.damoa.hand.dao.HandDAOImp;
+import com.damoa.hand.dao.HandDAO;
 import com.damoa.hand.dto.HandDTO;
 
 @Service
-public class HandService {
+public class HandService  {
 	@Autowired
-	HandDAOImp handDAO;
+	HandDAO handDAO;
 
 	public void write(HandDTO handDTO) {
 		handDAO.write(handDTO);

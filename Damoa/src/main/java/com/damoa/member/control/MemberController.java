@@ -60,17 +60,9 @@ public class MemberController {
 	}
 
 	// 아이디중복확인 validate 플러그인을 통해 ajax로 받음
-	@RequestMapping(value = "/checkId", method = { RequestMethod.POST, RequestMethod.GET })
-	@ResponseBody
-	public String checkId(String mId) {
-		System.out.println(mId);
-		int result = memberService.checkId(mId);
-		System.out.println(result);
-		if (result == 0) { // 1인경우 아이디 존재.
-			return "true";
-		} else {
-			return "false";
-		}
+	@ResponseBody @RequestMapping(value = "/checkId")
+	public boolean checkId(String mId) {
+		return memberService.checkId(mId);
 	}
 
 	// 로그아웃

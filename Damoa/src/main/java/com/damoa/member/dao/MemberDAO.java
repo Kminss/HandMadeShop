@@ -17,7 +17,8 @@ public class MemberDAO {
 		sqlSessionTemplate.insert("join", memberDTO);
 	}
 	
-	public int checkId(String mId) {
+	public boolean checkId(String mId) {
+		
 		return sqlSessionTemplate.selectOne("checkId", mId);
 	}
 	

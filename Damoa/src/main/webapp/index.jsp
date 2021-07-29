@@ -39,7 +39,7 @@
 	<main>
 		<div class="login">
 			<c:choose>
-				<c:when test="${empty memberDTO.mId }">
+				<c:when test="${empty member.mId }">
 					<fieldset>
 						<legend>로그인</legend>
 						<div class="loginform">
@@ -56,7 +56,7 @@
 					</fieldset>
 				</c:when>
 				<c:otherwise>
-			${memberDTO.mId }님 반갑습니다.
+			${member.mId }님 반갑습니다.
 			<div>
 			<a href="./member/logout"  >로그아웃</a> /
 			<a href="./member/mypage.jsp">마이페이지</a>

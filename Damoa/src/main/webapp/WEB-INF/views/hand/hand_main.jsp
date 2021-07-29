@@ -17,7 +17,8 @@
 		<h1 align="center">
 			<a id="damoaIcon" href="/">DAMOA</a>
 			<br> <font color=" #368AFF">공예품 마켓</font> <br>
-			<c:if test="${!empty memberDTO.mId }">${memberDTO.mId}님 환영합니다!</c:if>
+			<c:if test="${!empty member.mId }">${member.mId}님 환영합니다!</c:if>
+				<c:if test="${!empty admin.mId }">$관리자님 환영합니다!</c:if>
 
 		</h1>
 

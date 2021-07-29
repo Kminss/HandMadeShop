@@ -13,7 +13,7 @@
 			<table class="signup_table">
 				<tr>
 					<th style="width: 100px" scope="row"><label for="mId">아이디</label></th>
-					<td><input type="text" id="mId" name="mId" value="${memberDTO.mId}"/></td>
+					<td><input type="text" id="mId" name="mId" value="${member.mId"/></td>
 				</tr>
 				<tr>
 					<th scope="row"><label for="mPw">패스워드</label></th>
@@ -25,11 +25,11 @@
 				</tr>
 				<tr>
 					<th scope="row"><label for="mName">이름</label></th>
-					<td><input type="text" id="mName" name="mName" value="${memberDTO.mName }" /></td>
+					<td><input type="text" id="mName" name="mName" value="${member.mName }" /></td>
 				</tr>
 				<tr>
 					<th scope="row"><label for="mBirth">생년월일</label></th>
-					<td><input type="text" id="mBirth" name="mBirth" value="${memberDTO.mBirth }"/></td>
+					<td><input type="text" id="mBirth" name="mBirth" value="${member.mBirth }"/></td>
 				</tr>
 				<tr>
 					<th scope="row"><label for="mEmail">이메일</label></th>

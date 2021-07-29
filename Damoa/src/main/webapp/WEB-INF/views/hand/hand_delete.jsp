@@ -9,7 +9,7 @@
 </head>
 <body>
 	<c:choose>
-			<c:when test="${memberDTO.mId != null }">
+			<c:when test="${member != null}">
 	<form action="./Delete.do" method="post">
 		번호 : <input type="text" name="handNum"
 			value="<%=request.getParameter("handNum")%>">

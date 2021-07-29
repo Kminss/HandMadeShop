@@ -9,7 +9,7 @@
 </head>
 <body>
 	<c:choose>
-		<c:when test="${memberDTO.mId != null }">
+		<c:when test="${member != null }">
 			<form action="/hand/update" method="post">
 				번호 : <input type="text" name="handNum" value="${param.handNum}">
 				<p>
@@ -47,7 +47,7 @@
 					<label for="oldfile">파일 수정</label> <input type="file" id="oldfile"
 						name="oldfile">
 				</p> -->
-				<input type="hidden" value="${memberDTO.mId}" name="mId">
+				<input type="hidden" value="${member.mId}" name="mId">
 				<button type="submit">수정</button>
 			</form>
 		</c:when>

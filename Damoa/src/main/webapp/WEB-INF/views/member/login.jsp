@@ -9,7 +9,7 @@
   </head>
 
   <body width="100%" height="100%">
-    <form action="./login" method="post" class="loginForm">
+    <form action="../member/login" method="post" class="loginForm">
       <h2>Login</h2>
       <div class="idForm">
         <input type="text" class="id" name="mId" placeholder="ID">

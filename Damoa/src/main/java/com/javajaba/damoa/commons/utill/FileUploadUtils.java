@@ -89,7 +89,7 @@ public class FileUploadUtils {
 	        String rootPath = "/resources/upload";
 	        MediaType mediaType = ImgUtils.getMediaType(fileName); // 파일타입 확인
 	        if (mediaType != null)
-	            return request.getSession().getServletContext().getRealPath(rootPath + "/images"); // 이미지 파일 경로
+	            return request.getSession().getServletContext().getRealPath(rootPath + "/imges"); // 이미지 파일 경로
 
 	        return request.getSession().getServletContext().getRealPath(rootPath + "/files"); // 일반파일 경로
 	    }

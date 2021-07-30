@@ -7,11 +7,11 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class HandDTO {
-	private String mId;
-	private int handNum;
-	private String handTitle;
-	private String handContent;
-	private int handType;
+	private String mId;  //작성자 id
+	private int handNum; //게시물 번호
+	private String handTitle; //제목
+	private String handContent; //내용
+	private int handType;   //카테고리 1:전체, 2:인테리어, 3:악세서리, 4:주방,생활 5:디저트
 	private int handPrice;
 	private Date handDate;
 	private Date handUpdate;

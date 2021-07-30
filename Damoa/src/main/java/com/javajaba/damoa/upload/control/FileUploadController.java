@@ -18,7 +18,7 @@ import com.javajaba.damoa.commons.utill.FileUploadUtils;
 import com.javajaba.damoa.hand.service.HandService;
 
 @Controller
-@RequestMapping("/hand/file")
+@RequestMapping("/file")
 public class FileUploadController {
 	@Autowired
 	private HandService handService;

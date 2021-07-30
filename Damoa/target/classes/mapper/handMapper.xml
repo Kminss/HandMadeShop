@@ -32,7 +32,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
 	where 
 	handNum = #{handNum} and mId = #{mId}
 	</update>
-	<delete id="delete" parameterType="integer">
+	<delete id="delete" parameterType="Map">
 	delete from handmadeboard
 	where 
 	mId=#{mId} and handNum = #{handNum}

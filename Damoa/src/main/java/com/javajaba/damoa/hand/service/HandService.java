@@ -43,7 +43,7 @@ public class HandService {
 		handDAO.update(handDTO);
 	}
 
-	public void delete(Map<String, Object> map) {
-		handDAO.delete(map);
+	public int delete(Map<String, Object> map) {
+		return handDAO.delete(map);
 	}
 }

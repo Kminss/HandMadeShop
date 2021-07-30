@@ -46,6 +46,16 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 
+<!-- MultipartFilter -->
+<filter>
+<filter-name>MultipartFilter</filter-name>
+<filter-class>org.springframework.web.multipart.support.MultipartFilter</filter-class>
+</filter>
+<filter-mapping>
+<filter-name>MultipartFilter</filter-name>
+<url-pattern>/*</url-pattern>
+</filter-mapping>
+
 	<welcome-file-list>
 		<welcome-file>/index.jsp</welcome-file>
 	</welcome-file-list>

@@ -68,13 +68,6 @@ table tr td input[name=mAddr] {
 				<div class="valid">비밀번호를 다시 입력하세요. </div>
 			</td>
 		</tr>
-		<!-- <tr>
-			<th>* 성별</th>
-			<td>
-				<label><input type="radio" name="gender" value="남" checked/>남</label>
-				<label><input type="radio" name="gender" value="여" />여</label>
-			</td>
-		</tr> -->
 		<tr>
 			<th>* 이메일</th>
 			<td>

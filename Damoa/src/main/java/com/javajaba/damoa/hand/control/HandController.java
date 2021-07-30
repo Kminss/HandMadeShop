@@ -14,9 +14,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.javajaba.damoa.hand.dto.HandDTO;
 import com.javajaba.damoa.hand.service.HandService;
+import com.javajaba.damoa.member.dto.MemberDTO;
 
 @Controller
 @RequestMapping("/hand")
@@ -48,7 +50,7 @@ public class HandController {
 	@RequestMapping(value = "/write", method = RequestMethod.POST)
 	public String write(HandDTO handDTO) {
 		handService.write(handDTO);
-		return "redirect:/hand/list";
+		return "redirect:./list";
 	}
 
 	@RequestMapping(value = "/select")
@@ -70,19 +72,28 @@ public class HandController {
 	}
 
 	@RequestMapping(value = "/delete")
-	public String delete(@RequestParam int handNum, HttpServletRequest request) {
+	@ResponseBody
+	public String delete(int handNum, HttpServletRequest request) {
 
-		String mId = (String) request.getSession().getAttribute("mId");
+		MemberDTO member = (MemberDTO) request.getSession().getAttribute("member");
+		String mId = member.getmId();
+		
+		logger.info("handNum :" + handNum);
 		logger.info(mId);
 		if (mId != null) {
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("mId", mId);
 			map.put("handNum", handNum);
-			handService.delete(map);
-			return "/hand/hand_list";
+			int  delete =  handService.delete(map);
+			String result = "";
+			if (delete > 0) {
+				result = "success";
+			} else {
+				result = "fail";
+			}
+			return result;
 		} else {
-			return "redirect:/member/login";
+			return "/member/login";
 		}
-
 	}
 }

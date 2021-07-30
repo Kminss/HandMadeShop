@@ -30,7 +30,7 @@ public class HandDAO {
 		sqlSessionTemplate.update("update", handDTO);
 	}
 
-	public void delete(Map<String, Object> map) {
-		sqlSessionTemplate.delete("delete", map);
+	public int delete(Map<String, Object> map) {
+		return sqlSessionTemplate.delete("delete", map);
 	}
 }

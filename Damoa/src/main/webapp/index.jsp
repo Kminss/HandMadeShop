@@ -11,7 +11,7 @@
 <body>
 	<header>
 		<h1 align="center">
-			<a id="damoaIcon" href="/">DAMOA</a>
+			<a  id="damoaLogo" href="/">DAMOA</a>
 		</h1>
 	</header>
 	<nav>

@@ -10,9 +10,9 @@
 <body>
 	<c:choose>
 			<c:when test="${member != null}">
-	<form action="./Delete.do" method="post">
+	<form action="./delete" method="post">
 		번호 : <input type="text" name="handNum"
-			value="<%=request.getParameter("handNum")%>">
+			value="${handNum }">
 		<button type="submit">삭제</button>
 	</form>
 	</c:when>

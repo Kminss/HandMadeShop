@@ -7,7 +7,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
 	<select id="list" parameterType="HandDTO" resultType="HandDTO">
 	select 
 	* 
-	from handmadeboard
+	from handmade
 	</select>
 
 	<insert id="write" parameterType="HandDTO">
@@ -16,24 +16,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
 			select hand_seq.nextval from dual
 		</selectKey>
 		insert into
-		handmadeboard (mId, handNum, handTitle, handContent, handType)
+		handmade (mId, handNum, handTitle, handContent, handType)
 		values ( #{mId}, #{handNum}, #{handTitle}, #{handContent}, #{handType} )
 	</insert>
 	<select id="select" parameterType="integer" resultType="HandDTO">
 	select * from 
-	handmadeboard
+	handmade
 	where
 	handNum = #{handNum}
 	</select>
 	<update id="update" parameterType="HandDTO">
-	update handmadeboard 
+	update handmade 
 	set 
 	handTitle = #{handTitle}, handContent=#{handContent}, handType=#{handType}
 	where 
 	handNum = #{handNum} and mId = #{mId}
 	</update>
 	<delete id="delete" parameterType="Map">
-	delete from handmadeboard
+	delete from handmade
 	where 
 	mId=#{mId} and handNum = #{handNum}
 	</delete>

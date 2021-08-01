@@ -42,4 +42,5 @@
 		id="sqlSessionTemplate">
 		<constructor-arg ref="sqlSessionFactoryBean" />
 	</bean>
+	
 	</beans>

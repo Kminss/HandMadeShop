@@ -13,7 +13,8 @@
 
 	<!-- Enables the Spring MVC @Controller programming model -->
 	<annotation-driven />
-<context:component-scan base-package="com.javajaba.damoa"/>
+	<context:component-scan
+		base-package="com.javajaba.damoa" />
 
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving 
 		up static resources in the ${webappRoot}/resources directory -->
@@ -21,7 +22,8 @@
 	<resources mapping="/css/**" location="/resources/css/" />
 	<resources mapping="/img/**" location="/resources/img/" />
 	<resources mapping="/js/**" location="/resources/js/" />
-	<resources mapping="/bootstrap/**" location="/resources/bootstrap/" />
+	<resources mapping="/bootstrap/**"
+		location="/resources/bootstrap/" />
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources 
 		in the /WEB-INF/views directory -->
 	<beans:bean
@@ -29,23 +31,21 @@
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
-	
+
 	<interceptors>
 		<interceptor>
 			<mapping path="/hand/**" />
-			<exclude-mapping path="/hand/main"/>
-			<exclude-mapping path="/hand/list"/>
-			<exclude-mapping path="/hand/select"/>
-			
+			<exclude-mapping path="/hand/main" />
+			<exclude-mapping path="/hand/list" />
+			<exclude-mapping path="/hand/select" />
+
 			<!--적용될 인터셉트를 지정한다. -->
 			<beans:bean
 				class="com.javajaba.damoa.member.interceptor.LoginInter" />
 		</interceptor>
 	</interceptors>
-	
+
 	<!--파일 업로드 MultipartResolver 설정 -->
 	<beans:bean id="multipartResolver"
-		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-		<beans:property name="maxUploadSize" value="10485760" />
-	</beans:bean>
+		class="org.springframework.web.multipart.support.StandardServletMultipartResolver"/>
 </beans:beans>

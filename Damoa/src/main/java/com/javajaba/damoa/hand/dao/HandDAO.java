@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.javajaba.damoa.hand.dto.AttachedImgDTO;
 import com.javajaba.damoa.hand.dto.HandDTO;
 
 @Repository
@@ -33,4 +34,14 @@ public class HandDAO {
 	public int delete(Map<String, Object> map) {
 		return sqlSessionTemplate.delete("delete", map);
 	}
+	
+	//파일첨부
+	public void addFile(AttachedImgDTO attachedImgDTO) {
+		sqlSessionTemplate.insert("addFile",attachedImgDTO);
+	}
+	//첨부파일리스트
+	public List<AttachedImgDTO> listFile(int handNum) {
+		return sqlSessionTemplate.selectList("listFile",handNum);
+	}
 }
+

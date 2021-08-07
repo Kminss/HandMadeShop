@@ -3,28 +3,31 @@
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.javajaba.damoa.hand">
-
+	<!-- 상품목록 -->
 	<select id="list" parameterType="HandDTO" resultType="HandDTO">
 	select 
 	* 
 	from handmade
 	</select>
-
+	<!-- 상품등록 -->
 	<insert id="write" parameterType="HandDTO">
-		<selectKey keyProperty="handNum" resultType="integer"
-			order="BEFORE">
-			select hand_seq.nextval from dual
-		</selectKey>
+		<selectKey resultType="int" keyProperty="handNum" order="BEFORE">
+  			SELECT HAND_SEQ.nextval from dual
+  		</selectKey>  	
 		insert into
-		handmade (mId, handNum, handTitle, handContent, handType)
-		values ( #{mId}, #{handNum}, #{handTitle}, #{handContent}, #{handType} )
+		HANDMADE (mId, handNum, handTitle, handContent, handType, handImgCnt)
+		values ( #{mId}, #{handNum}, #{handTitle}, #{handContent}, #{handType}, #{handImgCnt} )
 	</insert>
+	
+	<!-- 상품상세조회 -->
 	<select id="select" parameterType="integer" resultType="HandDTO">
 	select * from 
 	handmade
 	where
 	handNum = #{handNum}
 	</select>
+	
+	<!-- 상품수정 -->
 	<update id="update" parameterType="HandDTO">
 	update handmade 
 	set 
@@ -32,6 +35,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
 	where 
 	handNum = #{handNum} and mId = #{mId}
 	</update>
+	
+	<!-- 상품삭제 -->
 	<delete id="delete" parameterType="Map">
 	delete from handmade
 	where 

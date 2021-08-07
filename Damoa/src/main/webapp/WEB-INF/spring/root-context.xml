@@ -13,7 +13,9 @@
 
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	<context:annotation-config />
-	<context:component-scan base-package="com.javajaba.damoa"/>
+<context:component-scan base-package="com.javajaba.damoa"> 
+<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/> 
+</context:component-scan>  
 	<!-- jdbc bean -->
 	<bean
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource"
@@ -42,5 +44,10 @@
 		id="sqlSessionTemplate">
 		<constructor-arg ref="sqlSessionFactoryBean" />
 	</bean>
+	<!-- 트랜잭션매니저 설정 -->
 	
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+	<tx:annotation-driven transaction-manager="transactionManager"/>
 	</beans>

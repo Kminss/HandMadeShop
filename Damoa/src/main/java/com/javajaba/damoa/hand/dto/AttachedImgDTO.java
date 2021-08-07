@@ -1,4 +1,4 @@
-package com.javajaba.damoa.upload.dto;
+package com.javajaba.damoa.hand.dto;
 
 import org.springframework.stereotype.Component;
 

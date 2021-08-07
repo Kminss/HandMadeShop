@@ -1,18 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.javajaba.damoa.upload">
+<mapper namespace="com.javajaba.damoa.hand">
 
-	<insert id="addFile">
-	<selectKey keyProperty="fileno" resultType="integer"
+	<insert id="addFile" parameterType="AttachedImgDTO">
+		<selectKey resultType="int" keyProperty="handNum" 
 			order="BEFORE">
-			select hand_seq.currentval() from dual
+			SELECT hand_seq.currval from dual
 		</selectKey>
-	insert into handfile (
-	filename, fileno
-	) values (
-	#{filename},#{fileno} 
-	)
+		insert into 
+		ATTACHED_IMG (handNum, fileName, uuid, uploadPath) 
+		values (#{handNum}, #{fileName}, #{uuid}, #{uploadPath})
 	</insert>
+	
+	<select id="listFile" resultType="AttachedImgDTO">
+	select * from attached_img
+	 where handNum = #{handNum}
+	</select>
 
 </mapper>

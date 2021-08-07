@@ -83,7 +83,7 @@ textarea {
 	<p class="w-pct60 right"
 		style="margin: 0 auto; padding-bottom: 5px; font-size: 13px;">*는
 		필수 입력 항목입니다.</p>
-	<form>
+	<form action="./write" method="post" name="product_form" enctype="multipart/form-data">
 		<table class="w-pct60">
 			<tr>
 				<th>* 제목</th>
@@ -93,7 +93,7 @@ textarea {
 			</tr>
 			<tr>
 				<th>* 가격</th>
-				<td><input type="text" title="가격" name="handPirce"
+				<td><input type="text" title="가격" name="handPrice"
 					id="handPrice" class="handPrice" />&nbsp; 원
 					<div class="valid">가격를 입력하세요.</div></td>
 
@@ -124,7 +124,7 @@ textarea {
 							<label>상품 이미지</label>
 						</div>
 						<div class="form_section_content">
-							<input type="file" multiple id="fileItem" name='uploadFile'
+							<input type="file" multiple id="uploadFile" name='uploadFile'
 								style="height: 30px;">
 						</div>
 						<div id="uploadResult"></div>
@@ -135,25 +135,54 @@ textarea {
 		<input type="hidden" value="${member.mId}" name="mId">
 	</form>
 	<div class="btnSet">
-		<a class="btn-fill" onclick="go_join()">등록</a> <a class="btn-empty"
+		<a class="btn-fill" onclick="formCheck()">등록</a> <a class="btn-empty"
 			href="./hand/main">취소</a>
 	</div>
 </head>
 <script>
+function formCheck() {
+    var title = document.forms[0].handTitle.value;
+    var price = document.forms[0].handPrice.value;
+    var content = document.forms[0].handContent.value;
+    var type = document.forms[0].handType.value;
+ 
+    if (title == null || title == "") { 
+        alert('제목을 입력하세요'); 
+        document.forms[0].handTitle.focus(); 
+        return false; 
+    }
+    if (price == null || price == "") {
+        alert('가격을 입력하세요');
+        document.forms[0].writer.focus();
+        return false;
+    }
+    if(price.match(/^\d+$/ig) == null){
+        alert('가격엔 숫자만 입력가능합니다.'); 
+        document.forms[0].handPrice.focus();                      
+        return false; 
+    }
+    if (type == null || type == "") {
+        alert('카테고리를 선택해주세요');
+        document.forms[0].handType.focus();
+        return false;
+    }
+    document.product_form.submit();
+}
+	
+	var fileCnt=0;
 	/* 이미지 업로드 */
 	$("input[type='file']").on("change", function(e) {
 		
 		let formData = new FormData();
 		let fileInput = $('input[name="uploadFile"]');
 		let fileList = fileInput[0].files;
-		let fileObj = fileList[0];
-		if(fileList.length==6){
-			alert("최대 5개까지 업로드 가능합니다.")
-			$("input[type='file']").val("");
-			return
-		}
+		
+		console.log(fileCnt);
+		//업로드 개수 제한
 		for (let i = 0; i < fileList.length; i++) {
-			
+			if(fileCnt > 5 | fileList.length > 4 ){
+				alert('5개까지 등록가능합니다.');
+				return}
 			formData.append("uploadFile", fileList[i]);
 		}
 
@@ -176,34 +205,38 @@ textarea {
 
 	//이미지 출력
 	function showUploadImage(uploadResultArr) {
-
+		fileCnt += uploadResultArr.length;
+		if(fileCnt > 5) {
+			alert("5개까지 등록가능합니다.")
+			$("input[type='file']").val("");
+			return}
 		//이미지데이터 확인
 		if ( uploadResultArr[0] === "" || uploadResultArr.length == 0) {
 			return
 		}
-
+		
 		let uploadResult = $("#uploadResult");
 		let obj = new Array(uploadResultArr.length);
 		let fileCallPath = new Array(uploadResultArr.length);
 		let str = "";
+		
 		for (var i = 0; i < obj.length; i++) {
 			obj[i] = uploadResultArr[i];
-			//경로 설정 및 인코딩  eoncode메서드가 자동으로 \\ => / 경로로 바꿔준다.
 			fileCallPath[i] = encodeURIComponent(obj[i].uploadPath.replace(/\\/g, '/') + "/s_" + obj[i].uuid + "_" + obj[i].fileName);
 		}
-		
-		console.log(fileCallPath)
-		
+		console.log('collpathLength : ' + fileCallPath.length)
 		for (var i = 0; i < fileCallPath.length; i++) {
+			
 			str += "<div id='result_card'>";
 			str += "<img src='/file/display?fileName=" + fileCallPath[i] + "'>";
 			str += "<div class='imgDeleteBtn' data-file='" + fileCallPath[i] + "'>x</div>";
+			//form에 submit시 이미지전송할 input
+			str += "<input type='hidden' name='handImgList["+ i +"].fileName' value='"+ obj[i].fileName +"'>";
+			str += "<input type='hidden' name='handImgList["+ i +"].uuid' value='"+ obj[i].uuid +"'>";
+			str += "<input type='hidden' name='handImgList["+ i +"].uploadPath' value='"+ obj[i].uploadPath +"'>";	
 			str += "</div>";
 		}
-		
-
 		uploadResult.append(str);
-		console.log(uploadResult)
 	}
 	
 	// 파일 삭제 이벤트
@@ -223,17 +256,14 @@ textarea {
 			dataType : 'text',
 			type : 'POST',
 			success : function(result){
-				console.log(result);
-				
 				targetDiv.remove();
+				fileCnt -= 1;
 				$("input[type='file']").val("");
 			},
 			error : function(result){
-				console.log(result);
 				alert("파일을 삭제하지 못하였습니다.")
 			}
        });
-		
 	}
 </script>
 </body>

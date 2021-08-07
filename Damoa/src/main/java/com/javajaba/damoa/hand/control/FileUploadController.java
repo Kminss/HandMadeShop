@@ -1,4 +1,4 @@
-package com.javajaba.damoa.upload.control;
+package com.javajaba.damoa.hand.control;
 
 import java.io.File;
 import java.io.IOException;
@@ -23,7 +23,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import com.javajaba.damoa.upload.dto.AttachedImgDTO;
+
+import com.javajaba.damoa.hand.dto.AttachedImgDTO;
+
 import net.coobird.thumbnailator.Thumbnails;
 
 @Controller
@@ -74,10 +76,8 @@ public class FileUploadController {
 
 		// ajax응답 업로드 파일정보 보내기 위한 리스트
 		List<AttachedImgDTO> list = new ArrayList<AttachedImgDTO>();
-
 		// 파일 업로드
 		for (MultipartFile multipartFile : uploadFile) {
-
 			AttachedImgDTO attachedImgDTO = new AttachedImgDTO();
 			// 파일 이름
 			String fileName = multipartFile.getOriginalFilename();
@@ -90,7 +90,6 @@ public class FileUploadController {
 			attachedImgDTO.setFileName(fileName);
 			attachedImgDTO.setUploadPath(datePath);
 			attachedImgDTO.setUuid(uuid);
-
 			try {
 				// 파일저장
 				multipartFile.transferTo(saveFile);
@@ -108,7 +107,6 @@ public class FileUploadController {
 		}
 		// json에 응답할 responseEntity객체 생성 jackson 라이브러리로 인해 json타입 자동변환
 		ResponseEntity<List<AttachedImgDTO>> result = new ResponseEntity<List<AttachedImgDTO>>(list, HttpStatus.OK);
-
 		return result;
 	}
 
@@ -118,7 +116,6 @@ public class FileUploadController {
 		File file = new File("d:\\upload\\" + fileName);
 
 		ResponseEntity<byte[]> result = null;
-		logger.info("filepath" + file.getPath());
 		try {
 
 			HttpHeaders header = new HttpHeaders();
@@ -134,7 +131,6 @@ public class FileUploadController {
 	@RequestMapping(value = "/deleteFile", method = RequestMethod.POST)
 	public ResponseEntity<String> deleteFile(String fileName) {
 
-		logger.info("deleteFile........" + fileName);
 		File file = null;
 		
 		try {
@@ -143,7 +139,6 @@ public class FileUploadController {
 			file.delete();
 			//원본파일 삭제
 			String originFileName = file.getAbsolutePath().replace("s_", "");
-			logger.info("originFileName : " + originFileName);
 			return new ResponseEntity<String>("success", HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();

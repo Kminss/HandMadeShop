@@ -1,8 +1,7 @@
 package com.javajaba.damoa.hand.dto;
 
-import java.io.File;
 import java.util.Date;
-
+import java.util.List;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -18,15 +17,25 @@ public class HandDTO {
 	private int handViewCnt;
 	
 	//파일 관련
-	private String handFiles[];
-	private int handFileCnt;
+	private List<AttachedImgDTO> handImgList;
+	private int handImgCnt;
 
-	public int getHandFileCnt() {
-		return handFileCnt;
+	
+
+	public List<AttachedImgDTO> getHandImgList() {
+		return handImgList;
 	}
 
-	public void setHandFileCnt(int handFileCnt) {
-		this.handFileCnt = handFileCnt;
+	public void setHandImgList(List<AttachedImgDTO> handImgList) {
+		this.handImgList = handImgList;
+	}
+
+	public int getHandImgCnt() {
+		return handImgCnt;
+	}
+
+	public void setHandImgCnt(int handImgCnt) {
+		this.handImgCnt = handImgCnt;
 	}
 
 	public int getHandViewCnt() {
@@ -37,15 +46,6 @@ public class HandDTO {
 		this.handViewCnt = handViewCnt;
 	}
 
-	public String[] getHandFiles() {
-		return handFiles;
-	}
-
-	public void setHandFiles(String[] handFiles) {
-		//filecnt값을 files 길이만큼 수정셋
-		setHandFileCnt(handFiles.length);
-		this.handFiles = handFiles;
-	}
 
 	public String getmId() {
 		return mId;
@@ -110,10 +110,13 @@ public class HandDTO {
 	public void setHandPrice(int handPrice) {
 		this.handPrice = handPrice;
 	}
+
 	@Override
 	public String toString() {
 		return "HandDTO [mId=" + mId + ", handNum=" + handNum + ", handTitle=" + handTitle + ", handContent="
 				+ handContent + ", handType=" + handType + ", handPrice=" + handPrice + ", handDate=" + handDate
-				+ ", handUpdate=" + handUpdate + "]";
+				+ ", handUpdate=" + handUpdate + ", handViewCnt=" + handViewCnt + ", handImgList=" + handImgList
+				+ ", handImgCnt=" + handImgCnt + "]";
 	}
+	
 }

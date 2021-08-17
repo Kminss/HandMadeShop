@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.damoa.hand.commons.dto.PageMakerDTO;
+import com.damoa.hand.commons.utill.Criteria;
 import com.javajaba.damoa.hand.dto.HandDTO;
 import com.javajaba.damoa.hand.service.HandService;
 import com.javajaba.damoa.member.dto.MemberDTO;
@@ -29,18 +31,35 @@ public class HandController {
 
 	@RequestMapping("/main")
 	public String main(Model model) {
-		List<HandDTO> list = handService.list();
+		//전체리스트
+		int handType = 0;
+		List<HandDTO> list = handService.list(handType);
 		model.addAttribute("list", list);
 		return "/hand/hand_main";
 	}
 
+	  /* 게시판 목록 페이지 접속(페이징 적용) */
 	@RequestMapping("/list")
-	public String list(Model model) {
-		List<HandDTO> list = handService.list();
-		model.addAttribute("list", list);
-		return "/hand/hand_list";
-
-	}
+    public String list(Model model, Criteria cri, String handType) {
+        
+        logger.info("boardListGET");
+        Map<String, Object> map = new HashMap<String, Object>();
+        logger.info("page :" + cri.getPageNum() + "amount : " + cri.getAmount());
+        map.put("cri", cri);
+        if(handType != null) {
+		map.put("handType", Integer.parseInt(handType));}
+        model.addAttribute("list", handService.getListPaging(map));
+        
+        int total = handService.getListTotal();
+        PageMakerDTO pageMakerDTO = new PageMakerDTO(cri, total);
+        model.addAttribute("pageMaker",  new PageMakerDTO(cri, total));
+        return "/hand/list";
+    }    
+	/*
+	 * @RequestMapping("/list") public String list(Model model, @RequestParam int
+	 * handType) { List<HandDTO> list = handService.list(handType);
+	 * model.addAttribute("list", list); return "../../list"; }
+	 */
 
 	@RequestMapping(value = "/write", method = RequestMethod.GET)
 	public String write() {
@@ -49,6 +68,7 @@ public class HandController {
 
 	@RequestMapping(value = "/write", method = RequestMethod.POST)
 	public String write(HandDTO handDTO) {
+		logger.info("리스트 : " + handDTO.getHandImgList());
 		handService.write(handDTO);
 		return "redirect:./list";
 	}

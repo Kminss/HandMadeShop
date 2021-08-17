@@ -18,7 +18,8 @@ public class HomeController {
 
 	@RequestMapping(value = "/", method = { RequestMethod.GET, RequestMethod.POST })
 	public String list(Model model) {
-		List<HandDTO> list = handService.list();
+		int handType = 0;
+		List<HandDTO> list = handService.list(handType);
 		model.addAttribute("list", list);
 		return "/index";
 	}

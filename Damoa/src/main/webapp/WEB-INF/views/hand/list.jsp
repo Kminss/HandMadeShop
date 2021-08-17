@@ -21,77 +21,70 @@
     <![endif]-->
 </head>
 <body>
-		<jsp:include page="./WEB-INF/views/hand/hand_top_layout.jsp" flush="flase" />
+	<jsp:include page="./hand_top_layout.jsp" flush="flase" />
 	<!-- list -->
-
 	<div class="container">
 		<div class="row">
-			<div class="col-sm-6 col-md-3">
-				<div class="thumbnail">
-					<img src="/img/s_bf13e2fa-bfbb-4137-9d6a-a535c40f8d5f_fds.png"
-						alt="...">
-					<div class="caption">
-						<h3>수제악세서리</h3>
-						<p>
-							<span class="badge badge-secondary">Secondary</span>
-						</p>
-						<p>....</p>
-						<p>
-							<a href="#" class="btn btn-primary" role="button">Button</a> <a
-								href="#" class="btn btn-default" role="button">Button</a>
-						</p>
+			<div class="text-right">
+				<nav>
+
+					<ul class="pagination" id="pagination">
+
+						<li class=${pageMaker.cri.pageNum - 1 < 1  ? "disabled":""}><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+						<c:forEach var="num" begin="${pageMaker.startPage}" end="5">
+								<li class=${pageMaker.cri.pageNum == num ? "active":"" }><a href="${num}">${num } <span class="sr-only">(current)</span></a></li>
+						</c:forEach>
+
+						<li><a href="${pageMaker.cri.pageNum + 1 }" aria-label="Next">
+								<span aria-hidden="true">&raquo;</span>
+						</a></li>
+						<li><form id="moveForm" method="get">
+								<input type="hidden" name="pageNum"
+									value="${pageMaker.cri.pageNum }"> <input type="hidden"
+									name="amount" value="${pageMaker.cri.amount }">
+							</form></li>
+					</ul>
+
+				</nav>
+			</div>
+			<c:forEach var="list" items="${list}">
+				<div class="col-sm-6 col-md-3">
+					<div class="thumbnail">
+						<img src="/img/s_bf13e2fa-bfbb-4137-9d6a-a535c40f8d5f_fds.png"
+							alt="...">
+						<div class="caption">
+							<h3>${list.handTitle}</h3>
+							<p>
+								<span class="badge badge-secondary">${list.handType} </span>
+							</p>
+							<p>${list.handContent }</p>
+							<p>
+								<a href="#" class="btn btn-primary" role="button">바로구매</a> <a
+									href="#" class="btn btn-default" role="button">상세정보</a>
+							</p>
+						</div>
 					</div>
 				</div>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-sm-6 col-md-3">
-				<div class="thumbnail">
-					<img src="/img/s_bf13e2fa-bfbb-4137-9d6a-a535c40f8d5f_fds.png"
-						alt="...">
-					<div class="caption">
-						<h3>Thumbnail label</h3>
-						<p>...</p>
-						<p>
-							<a href="#" class="btn btn-primary" role="button">Button</a> <a
-								href="#" class="btn btn-default" role="button">Button</a>
-						</p>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-sm-6 col-md-3">
-				<div class="thumbnail">
-					<img src="/img/s_bf13e2fa-bfbb-4137-9d6a-a535c40f8d5f_fds.png"
-						alt="...">
-					<div class="caption">
-						<h3>수제악세서리</h3>
-						<p>
-							<span class="badge badge-secondary">Secondary</span>
-						</p>
-						<p>....</p>
-						<p>
-							<a href="#" class="btn btn-primary" role="button">Button</a> <a
-								href="#" class="btn btn-default" role="button">Button</a>
-						</p>
-					</div>
-				</div>
-			</div>
+			</c:forEach>
 		</div>
 	</div>
 	<!-- footer -->
-	<div>
-		<jsp:include page="./WEB-INF/views/hand/hand_footer_layout.jsp"
-			flush="false" />\
-		<!-- Placed at the end of the document so the pages load faster -->
-		<script src="./js/jquery-3.5.1.min.js"></script>
-		<script src="./bootstrap/js/bootstrap.min.js"></script>
-	</div>
+	<jsp:include page="./hand_footer_layout.jsp" flush="false" />\
 
 	<!-- jQuery (부트스트랩의 자바스크립트 플러그인을 위해 필요합니다) -->
-	<script src="./js/jquery-3.5.1.min.js"></script>
+	<script src="/js/jquery-3.5.1.min.js"></script>
 	<!-- 모든 컴파일된 플러그인을 포함합니다 (아래), 원하지 않는다면 필요한 각각의 파일을 포함하세요 -->
-	<script src="./bootstrap/js/bootstrap.min.js"></script>
+	<script src="/bootstrap/js/bootstrap.min.js"></script>
+
+	<script>
+		$(".pagination a").on("click", function(e) {
+
+			e.preventDefault();
+			moveForm.find("input[name='pageNum']").val($(this).attr("href"));
+			moveForm.attr("action", "/hand/list");
+			moveForm.submit();
+
+		});
+	</script>
 </body>
 </html>

@@ -8,6 +8,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.damoa.hand.commons.utill.Criteria;
+import com.javajaba.damoa.hand.dao.FileDAO;
 import com.javajaba.damoa.hand.dao.HandDAO;
 import com.javajaba.damoa.hand.dto.AttachedImgDTO;
 import com.javajaba.damoa.hand.dto.HandDTO;
@@ -18,6 +21,8 @@ public class HandService {
 	private static final Logger logger = LoggerFactory.getLogger(HandService.class);
 	@Autowired
 	HandDAO handDAO;
+	@Autowired
+	FileDAO fileDAO;
 
 	@Transactional
 	public void write(HandDTO handDTO) {
@@ -31,12 +36,16 @@ public class HandService {
 			}
 			//첨부이미지 db저장
 			for (AttachedImgDTO imgDTO : handDTO.getHandImgList()) {
-				handDAO.addFile(imgDTO);
+				fileDAO.addFile(imgDTO);
 			}
 	}
-
-	public List<HandDTO> list() {
-		return handDAO.list();
+	
+	public int getListTotal() {
+		return handDAO.getListTotal();
+	}
+	
+	public List<HandDTO> list(int handType) {
+		return handDAO.list(handType);
 	}
 
 	public HandDTO select(int handNum) {
@@ -49,5 +58,9 @@ public class HandService {
 
 	public int delete(Map<String, Object> map) {
 		return handDAO.delete(map);
+	}
+
+	public Object getListPaging(Map<String, Object> map) {
+		return handDAO.getPagingList(map);
 	}
 }

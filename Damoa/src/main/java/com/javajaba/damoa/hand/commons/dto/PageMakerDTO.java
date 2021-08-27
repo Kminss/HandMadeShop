@@ -1,9 +1,7 @@
-package com.damoa.hand.commons.dto;
+package com.javajaba.damoa.hand.commons.dto;
 
-import org.springframework.stereotype.Component;
-import com.damoa.hand.commons.utill.Criteria;
+import com.javajaba.damoa.hand.commons.utill.Criteria;
 
-@Component
 public class PageMakerDTO {
 	
 	  /* 시작 페이지 */

@@ -3,43 +3,95 @@
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.javajaba.damoa.hand">
-	<!-- 상품목록 -->
-	<select id="list" parameterType="HandDTO" resultType="HandDTO">
-	select 
-	* 
-	from handmade
+
+<!-- criteria(검색조건) -->
+	<sql id="criteria">
+		    <if test="keyword != null">
+			    handTitle like '%' || #{keyword} || '%' and
+			</if>
+	</sql>
+	
+	<!-- 최신상품목록 -->
+	<select id="newList" resultType="HandDTO">
+		  <![CDATA[
+		select * from handmade
+		where rownum <= 12 
+		order by handNum desc
+	  ]]>
 	</select>
 	<!-- 상품등록 -->
 	<insert id="write" parameterType="HandDTO">
-		<selectKey resultType="int" keyProperty="handNum" order="BEFORE">
-  			SELECT HAND_SEQ.nextval from dual
-  		</selectKey>  	
+		<selectKey resultType="int" keyProperty="handNum"
+			order="BEFORE">
+			SELECT HAND_SEQ.nextval from dual
+		</selectKey>
 		insert into
-		HANDMADE (mId, handNum, handTitle, handContent, handType, handImgCnt)
-		values ( #{mId}, #{handNum}, #{handTitle}, #{handContent}, #{handType}, #{handImgCnt} )
+		HANDMADE ( mId, handNum, handTitle, handContent, handType )
+		values 
+		( #{mId}, #{handNum}, #{handTitle}, #{handContent},#{handType} )
 	</insert>
+	
+	<!-- 게시물 목록(페이징) -->
+	<!-- 검색,카테고리목록 -->
+	<select id="getListPaging" parameterType="hashMap" resultType="HandDTO">
+    
+    <![CDATA[
+        
+        select handNum, mId, handTitle, handContent, handType, handPrice, handDate, handUpdate from(
+        
+                select /*+INDEX_DESC(handmade pk_handmade) */ rownum  as rn, handNum, mId, handTitle, handContent, handType, handPrice, handDate, handUpdate
+                  
+                from handmade
+                where
+                 ]]>
+               	<include refid="criteria"></include>
+                 
+				<if test="handType != null and handType > 0 ">
+				handType = #{handType} and
+				</if>
+                 <![CDATA[
+                  rownum <= #{cri.pageNum} * #{cri.amount}) 
+                
+        where rn > (#{cri.pageNum} -1) * #{cri.amount}
+    ]]>
+	</select>
+	
+	<!-- 페이지 총 게시글 수  -->
+	<select id="getListTotal" resultType="int">
+	select count(*) from handmade
+	<where>
+	<include refid="criteria"></include>
+	<if test="handType != null and handType > 0 ">
+	handType = #{handType}
+	</if>
+	</where>
+	</select>
 	
 	<!-- 상품상세조회 -->
 	<select id="select" parameterType="integer" resultType="HandDTO">
-	select * from 
-	handmade
-	where
-	handNum = #{handNum}
+		select *
+		from
+		handmade
+	<if test="keyword != null">
+  		
+  			where handTitle like '%' || #{keyword} || '%'
+  		</if>
 	</select>
-	
+
 	<!-- 상품수정 -->
 	<update id="update" parameterType="HandDTO">
-	update handmade 
-	set 
-	handTitle = #{handTitle}, handContent=#{handContent}, handType=#{handType}
-	where 
-	handNum = #{handNum} and mId = #{mId}
+		update handmade
+		set
+		handTitle =
+		#{handTitle}, handContent=#{handContent}, handType=#{handType}
+		where
+		handNum = #{handNum} and mId = #{mId}
 	</update>
-	
+
 	<!-- 상품삭제 -->
 	<delete id="delete" parameterType="Map">
-	delete from handmade
-	where 
-	mId=#{mId} and handNum = #{handNum}
+		delete from handmade
+		where
+		mId=#{mId} and handNum = #{handNum}
 	</delete>
 </mapper>

@@ -22,7 +22,8 @@ public void addFile(AttachedImgDTO attachedImgDTO) {
 	sqlSessionTemplate.insert("addFile",attachedImgDTO);
 }
 //첨부파일리스트
-public List<AttachedImgDTO> fileList(int handNum) {
-	return sqlSessionTemplate.selectList("fileList",handNum);
+public List<AttachedImgDTO> listFile(int attachedNum) {
+	return sqlSessionTemplate.selectList("listFile",attachedNum);
 }
+
 }

@@ -19,7 +19,7 @@
 	<!-- jdbc bean -->
 	<bean
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource"
-		id="dataSource" destroy-method="clone">
+		id="dataSourceSpeid" destroy-method="clone">
 		<property name="driverClassName"
 			value="oracle.jdbc.OracleDriver" />
 		<property name="url"
@@ -27,6 +27,17 @@
 		<property name="username" value="scott" />
 		<property name="password" value="tiger" />
 	</bean>
+	
+	<bean id="dataSource" class="net.sf.log4jdbc.Log4jdbcProxyDataSource"> 
+    <constructor-arg ref="dataSourceSpeid" /> 
+    <property name="logFormatter"> 
+        <bean class="net.sf.log4jdbc.tools.Log4JdbcCustomFormatter"> 
+            <property name="loggingType" value="MULTI_LINE" /> 
+            <property name="sqlPrefix" value="SQL : "/> 
+        </bean> 
+    </property> 
+</bean>
+	
 	<!--팩토리에서 Bean 객체로 호출한 결과를 반환한다. -->
 	<bean class="org.mybatis.spring.SqlSessionFactoryBean"
 		id="sqlSessionFactoryBean">

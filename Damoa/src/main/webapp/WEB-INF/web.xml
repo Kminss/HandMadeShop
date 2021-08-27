@@ -17,6 +17,7 @@
 	</listener>
 
 	<!-- Processes application requests -->
+    
 	<servlet>
 		<servlet-name>appServlet</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet
@@ -65,7 +66,5 @@
 		<file-size-threshold>20971520</file-size-threshold>		<!-- 20MB -->
 	</multipart-config>
 
-	<welcome-file-list>
-		<welcome-file>/index.jsp</welcome-file>
-	</welcome-file-list>
+	
 </web-app>

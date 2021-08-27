@@ -16,6 +16,12 @@
 		<org.slf4j-version>1.6.6</org.slf4j-version>
 	</properties>
 	<dependencies>
+		<!-- 쿼리로그 -->
+		<dependency>
+			<groupId>org.lazyluke</groupId>
+			<artifactId>log4jdbc-remix</artifactId>
+			<version>0.2.7</version>
+		</dependency>
 
 		<!--File Upload -->
 		<dependency>
@@ -30,12 +36,12 @@
 			<version>2.4</version>
 		</dependency>
 
-	<!-- thumbnail -->
+		<!-- thumbnail -->
 		<dependency>
-		    <groupId>net.coobird</groupId>
-		    <artifactId>thumbnailator</artifactId>
-		    <version>0.4.13</version>
-		</dependency>	
+			<groupId>net.coobird</groupId>
+			<artifactId>thumbnailator</artifactId>
+			<version>0.4.13</version>
+		</dependency>
 
 		<!-- Json -->
 		<dependency>

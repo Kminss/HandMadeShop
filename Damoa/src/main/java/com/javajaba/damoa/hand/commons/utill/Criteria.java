@@ -1,4 +1,4 @@
-package com.damoa.hand.commons.utill;
+package com.javajaba.damoa.hand.commons.utill;
 
 import org.springframework.stereotype.Component;
 

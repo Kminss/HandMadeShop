@@ -18,7 +18,7 @@ public class FileService {
 		fileDAO.addFile(attachedImgDTO);
 	}
 	//첨부파일리스트
-	public List<AttachedImgDTO> fileList(int handNum) {
-		return fileDAO.fileList(handNum);
+	public List<AttachedImgDTO> listFile(int handNum) {
+		return fileDAO.listFile(handNum);
 	}
 }

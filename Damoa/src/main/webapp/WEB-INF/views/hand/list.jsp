@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -30,9 +31,11 @@
 
 					<ul class="pagination" id="pagination">
 
-						<li class=${pageMaker.cri.pageNum - 1 < 1  ? "disabled":""}><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+						<li class=${pageMaker.cri.pageNum - 1 < 1  ? "disabled":""}><a
+							href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
 						<c:forEach var="num" begin="${pageMaker.startPage}" end="5">
-								<li class=${pageMaker.cri.pageNum == num ? "active":"" }><a href="${num}">${num } <span class="sr-only">(current)</span></a></li>
+							<li class=${pageMaker.cri.pageNum == num ? "active":"" }><a
+								href="${num}">${num } <span class="sr-only">(current)</span></a></li>
 						</c:forEach>
 
 						<li><a href="${pageMaker.cri.pageNum + 1 }" aria-label="Next">
@@ -47,17 +50,25 @@
 
 				</nav>
 			</div>
-			<c:forEach var="list" items="${list}">
+			<c:forEach var="item" items="${list}">
+			
 				<div class="col-sm-6 col-md-3">
 					<div class="thumbnail">
-						<img src="/img/s_bf13e2fa-bfbb-4137-9d6a-a535c40f8d5f_fds.png"
-							alt="...">
+						<c:choose>
+							<c:when test="${empty item.handImgList[0].fileName}">
+							<img src="/resources/img/NoImage.png">
+							 </c:when>
+							<c:otherwise>
+							<c:set var="img" value="${item.handImgList[0]}"/>
+							<img src="/file/display?fileName=${fn:replace(img.uploadPath,'\\','/') }/s_${img.uuid}_${img.fileName}"/>
+							 </c:otherwise>
+						</c:choose>
 						<div class="caption">
-							<h3>${list.handTitle}</h3>
+							<h3>${item.handTitle}</h3>
 							<p>
-								<span class="badge badge-secondary">${list.handType} </span>
+								<span class="badge badge-secondary">${item.handType} </span>
 							</p>
-							<p>${list.handContent }</p>
+							<p>${item.handContent }</p>
 							<p>
 								<a href="#" class="btn btn-primary" role="button">바로구매</a> <a
 									href="#" class="btn btn-default" role="button">상세정보</a>
@@ -69,14 +80,14 @@
 		</div>
 	</div>
 	<!-- footer -->
-	<jsp:include page="./hand_footer_layout.jsp" flush="false" />\
+	<jsp:include page="./hand_footer_layout.jsp" flush="false" />
 
 	<!-- jQuery (부트스트랩의 자바스크립트 플러그인을 위해 필요합니다) -->
 	<script src="/js/jquery-3.5.1.min.js"></script>
 	<!-- 모든 컴파일된 플러그인을 포함합니다 (아래), 원하지 않는다면 필요한 각각의 파일을 포함하세요 -->
 	<script src="/bootstrap/js/bootstrap.min.js"></script>
 
-	<script>
+	<script type="text/javascript">
 		$(".pagination a").on("click", function(e) {
 
 			e.preventDefault();

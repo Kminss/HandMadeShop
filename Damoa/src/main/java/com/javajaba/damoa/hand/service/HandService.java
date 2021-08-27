@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.damoa.hand.commons.utill.Criteria;
+import com.javajaba.damoa.hand.commons.utill.Criteria;
 import com.javajaba.damoa.hand.dao.FileDAO;
 import com.javajaba.damoa.hand.dao.HandDAO;
 import com.javajaba.damoa.hand.dto.AttachedImgDTO;
@@ -44,8 +44,8 @@ public class HandService {
 		return handDAO.getListTotal();
 	}
 	
-	public List<HandDTO> list(int handType) {
-		return handDAO.list(handType);
+	public List<HandDTO> newList() {
+		return handDAO.newList();
 	}
 
 	public HandDTO select(int handNum) {
@@ -60,7 +60,8 @@ public class HandService {
 		return handDAO.delete(map);
 	}
 
-	public Object getListPaging(Map<String, Object> map) {
-		return handDAO.getPagingList(map);
+	public List<HandDTO> getListPaging(Map<String, Object> map) {
+		
+		return handDAO.getListPaging(map);
 	}
 }

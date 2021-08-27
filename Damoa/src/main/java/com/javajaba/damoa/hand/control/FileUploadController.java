@@ -17,9 +17,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.FileCopyUtils;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -35,15 +37,14 @@ import net.coobird.thumbnailator.Thumbnails;
 public class FileUploadController {
 	@Autowired
 	FileService fileservice;
-	
-	private static final Logger logger = LoggerFactory.getLogger(FileUploadController.class);
-	
 
-	//파일 업로드
+	private static final Logger logger = LoggerFactory.getLogger(FileUploadController.class);
+
+	// 파일 업로드
 	@RequestMapping(value = "/uploadFile", method = RequestMethod.POST)
 	public ResponseEntity<List<AttachedImgDTO>> uploadAjaxActionPOST(
 			@RequestParam("uploadFile") MultipartFile[] uploadFile, HttpServletRequest req) throws Exception {
-		//이미지 파일 체크
+		// 이미지 파일 체크
 		for (MultipartFile multipartFile : uploadFile) {
 
 			File checkfile = new File(multipartFile.getOriginalFilename());
@@ -103,7 +104,7 @@ public class FileUploadController {
 				// 썸네일 생성
 				File thumbnailFile = new File(uploadPath, "s_" + uploadFileName);
 
-				Thumbnails.of(saveFile).size(240, 200).toFile(thumbnailFile);
+				Thumbnails.of(saveFile).size(242, 200).toFile(thumbnailFile);
 
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -133,30 +134,33 @@ public class FileUploadController {
 		return result;
 	}
 
-	//이미지 파일 삭제
+	// 이미지 파일 삭제
 	@RequestMapping(value = "/deleteFile", method = RequestMethod.POST)
 	public ResponseEntity<String> deleteFile(String fileName) {
 
 		File file = null;
-		
+
 		try {
-			//썸네일파일 삭제
+			// 썸네일파일 삭제
 			file = new File("d:\\upload\\" + URLDecoder.decode(fileName, "UTF-8"));
 			file.delete();
-			//원본파일 삭제
+			// 원본파일 삭제
 			String originFileName = file.getAbsolutePath().replace("s_", "");
-			file = new File(originFileName,"UTF-8");
+			file = new File(originFileName, "UTF-8");
 			file.delete();
 			return new ResponseEntity<String>("success", HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
-			//실패시 실행안됨상태코드로, fail 전송
+			// 실패시 실행안됨상태코드로, fail 전송
 			return new ResponseEntity<String>("fail", HttpStatus.NOT_IMPLEMENTED);
 		}
 	}
-	//이미지 반환
-	public ResponseEntity<AttachedImgDTO> getFileList(int handNum){
-		fileservice.fileList(handNum);
-		return null;
-		}
+
+	// 이미지 반환
+	@RequestMapping(value="/getListFile", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE )
+	public ResponseEntity<AttachedImgDTO> getListFile(int handNum) {
+		logger.info("getAttachList.........." + handNum);
+
+		return new ResponseEntity(	fileservice.listFile(handNum), HttpStatus.OK);
+	}
 }

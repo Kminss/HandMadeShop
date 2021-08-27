@@ -9,11 +9,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
 			SELECT hand_seq.currval from dual
 		</selectKey>
 		insert into 
-		ATTACHED_IMG (handNum, fileName, uuid, uploadPath) 
+		attached_img (handNum, fileName, uuid, uploadPath) 
 		values (#{handNum}, #{fileName}, #{uuid}, #{uploadPath})
 	</insert>
 	
-	<select id="listFile" resultType="AttachedImgDTO">
+	<select id="listFile" parameterType="int" resultType="AttachedImgDTO">
 	select * from attached_img
 	 where handNum = #{handNum}
 	</select>

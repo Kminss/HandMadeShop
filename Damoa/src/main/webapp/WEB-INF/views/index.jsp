@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -68,15 +69,16 @@
 		<script>console.log(${list[0].handTitle});</script>
 			<c:forEach var="item" items="${list}">
 			
-				<div class="col-sm-6 col-md-3">
+				<div class="col-sm-6 col-md-3" >
 					<div class="thumbnail">
 						<c:choose>
 							<c:when test="${empty item.handImgList[0].fileName}">
-							<img src="/resources/img/NoImage.png">
+							<img src="/resources/img/NoImage.png" class="img-responsive" alt="Responsive image" style="height: 150px;">
 							 </c:when>
 							<c:otherwise>
 							<c:set var="img" value="${item.handImgList[0]}"/>
-							<img src="/file/display?fileName=${fn:replace(img.uploadPath,'\\','/') }/s_${img.uuid}_${img.fileName}"/>
+							<img  class="img-responsive" alt="Responsive image" src="/file/display?fileName=${fn:replace(img.uploadPath,'\\','/') }/s_${img.uuid}_${img.fileName}" style="height: 150px;">
+							
 							 </c:otherwise>
 						</c:choose>
 						<div class="caption">
@@ -84,11 +86,11 @@
 							<p>
 								<span class="badge badge-secondary">${item.handType} </span>
 							</p>
-							<p>${item.handContent }</p>
 							<p>
 								<a href="#" class="btn btn-primary" role="button">바로구매</a> <a
 									href="#" class="btn btn-default" role="button">상세정보</a>
 							</p>
+							<p>등록일 : <fmt:formatDate value="${item.handDate}" pattern="yyyy-MM-dd"/></p>
 						</div>
 					</div>
 				</div>

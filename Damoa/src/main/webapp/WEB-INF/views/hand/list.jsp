@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -26,22 +27,25 @@
 	<!-- list -->
 	<div class="container">
 		<div class="row">
-			<div class="text-right">
-				<nav>
-
+			<h2 class="text-center" id="category">${param.handType}</h2>
+				<nav class="text-right">
 					<ul class="pagination" id="pagination">
-
-						<li class=${pageMaker.cri.pageNum - 1 < 1  ? "disabled":""}><a
-							href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
-						<c:forEach var="num" begin="${pageMaker.startPage}" end="5">
+						<c:if test="${pageMaker.prev }">
+							<li><a href="${pageMaker.startPage -1 }"
+								aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+						</c:if>
+						<c:forEach var="num" begin="${pageMaker.startPage}"
+							end="${pageMaker.endPage }">
 							<li class=${pageMaker.cri.pageNum == num ? "active":"" }><a
 								href="${num}">${num } <span class="sr-only">(current)</span></a></li>
 						</c:forEach>
-
-						<li><a href="${pageMaker.cri.pageNum + 1 }" aria-label="Next">
-								<span aria-hidden="true">&raquo;</span>
-						</a></li>
+						<c:if test="${pageMaker.next}">
+							<li><a href="${pageMaker.endPage + 1 }" aria-label="Next">
+									<span aria-hidden="true">&raquo;</span>
+							</a></li>
+						</c:if>
 						<li><form id="moveForm" method="get">
+								<input type="hidden" name="handType" value="${param.handType}">
 								<input type="hidden" name="pageNum"
 									value="${pageMaker.cri.pageNum }"> <input type="hidden"
 									name="amount" value="${pageMaker.cri.amount }">
@@ -49,19 +53,19 @@
 					</ul>
 
 				</nav>
-			</div>
 			<c:forEach var="item" items="${list}">
-			
+
 				<div class="col-sm-6 col-md-3">
 					<div class="thumbnail">
 						<c:choose>
 							<c:when test="${empty item.handImgList[0].fileName}">
-							<img src="/resources/img/NoImage.png">
-							 </c:when>
+								<img style="height: 150px;" src="/resources/img/NoImage.png">
+							</c:when>
 							<c:otherwise>
-							<c:set var="img" value="${item.handImgList[0]}"/>
-							<img src="/file/display?fileName=${fn:replace(img.uploadPath,'\\','/') }/s_${img.uuid}_${img.fileName}"/>
-							 </c:otherwise>
+								<c:set var="img" value="${item.handImgList[0]}" />
+								<img style="height: 150px;"
+									src="/file/display?fileName=${fn:replace(img.uploadPath,'\\','/') }/s_${img.uuid}_${img.fileName}" />
+							</c:otherwise>
 						</c:choose>
 						<div class="caption">
 							<h3>${item.handTitle}</h3>
@@ -71,8 +75,13 @@
 							<p>${item.handContent }</p>
 							<p>
 								<a href="#" class="btn btn-primary" role="button">바로구매</a> <a
-									href="#" class="btn btn-default" role="button">상세정보</a>
+									href="#" class="btn btn-default" role="button">상세정보</a> <br>
 							</p>
+							<p>
+								등록일 :
+								<fmt:formatDate value="${item.handDate}" pattern="yyyy-MM-dd" />
+							</p>
+
 						</div>
 					</div>
 				</div>
@@ -88,13 +97,48 @@
 	<script src="/bootstrap/js/bootstrap.min.js"></script>
 
 	<script type="text/javascript">
+	$(document).ready(function() {
+		//handType  한글로 수정 출력
+		let handTypeTitle = document.getElementById("category")
+		let handTypeBadge = document.getElementsByClassName("badge badge-secondary")
+		let choice = ${param.handType}
+		switch (choice) {
+		case 0:
+			handTypeTitle.innerHTML = "전체목록"
+			break;
+		case 1:
+			handTypeTitle.innerHTML = "인테리어"
+			handTypeBadge.innerHTML = "인테리어"
+			break;
+		case 2:
+			handTypeTitle.innerHTML = "악세서리"
+			handTypeBadge.innerHTML = "악세서리"
+			break;
+		case 3:
+			handTypeTitle.innerHTML = "가구"
+			handTypeBadge.innerHTML = "가구"
+			break;
+		case 4:
+			handTypeTitle.innerHTML = "주방 / 생활"
+			handTypeBadge.innerHTML = "주방 / 생활"
+			break;
+		case 5:
+			handTypeTitle.innerHTML = "디저트"
+			handTypeBadge.innerHTML = "디저트"
+			break;
+		default:
+			handTypeTitle.innerHTML = "기타"
+			handTypeBadge.innerHTML = "기타"
+			break;
+		}
+	});
+	let moveForm = $("#moveForm");
+	
 		$(".pagination a").on("click", function(e) {
-
 			e.preventDefault();
 			moveForm.find("input[name='pageNum']").val($(this).attr("href"));
 			moveForm.attr("action", "/hand/list");
 			moveForm.submit();
-
 		});
 	</script>
 </body>

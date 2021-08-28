@@ -15,7 +15,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
 	<select id="newList" resultType="HandDTO">
 		  <![CDATA[
 		select * from handmade
-		where rownum <= 12 
+		where rownum <= 8 
 		order by handNum desc
 	  ]]>
 	</select>
@@ -37,7 +37,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
     
     <![CDATA[
         
-        select handNum, mId, handTitle, handContent, handType, handPrice, handDate, handUpdate from(
+        select handNum, mId, handTitle, handContent, handType, handPrice,handDate, handUpdate from(
         
                 select /*+INDEX_DESC(handmade pk_handmade) */ rownum  as rn, handNum, mId, handTitle, handContent, handType, handPrice, handDate, handUpdate
                   
@@ -57,7 +57,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
 	</select>
 	
 	<!-- 페이지 총 게시글 수  -->
-	<select id="getListTotal" resultType="int">
+	<select id="getListTotal" parameterType="hashMap" resultType="int">
 	select count(*) from handmade
 	<where>
 	<include refid="criteria"></include>

@@ -53,7 +53,7 @@ public class HandController {
 			logger.info("" + list.get(i));
 		}
 		model.addAttribute("list", list);
-		int total = handService.getListTotal();
+		int total = handService.getListTotal(map);
 		PageMakerDTO pageMakerDTO = new PageMakerDTO(cri, total);
 		model.addAttribute("pageMaker", pageMakerDTO);
 		return "/hand/list";

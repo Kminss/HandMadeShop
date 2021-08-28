@@ -22,13 +22,9 @@ public class HandDAO {
 		return sqlSessionTemplate.selectList("newList");
 	}
 	
-	public int getListTotal() {
-		return sqlSessionTemplate.selectOne("getListTotal");}
+	public int getListTotal(Map<String, Object> map) {
+		return sqlSessionTemplate.selectOne("getListTotal", map);}
 	
-	public int handGetTotal(Criteria cri) {
-		return sqlSessionTemplate.selectOne("handGetTotal", cri);
-		
-	}
 	public List<HandDTO> getListPaging(Map<String, Object> map){
 		return sqlSessionTemplate.selectList("getListPaging", map);}
 	

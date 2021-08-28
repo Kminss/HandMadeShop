@@ -50,7 +50,7 @@
 
 				<ul class="nav navbar-nav navbar-right">
 					<li>
-						<form class="searchForm" action="/hand/list" method="get">
+						<form class="searchForm" id="searchForm" action="/hand/list" method="get">
 							<input  name="keyword" type="search" placeholder="Search"
 								aria-label="Search">
 							<input type="hidden" name="pageNum" value='${pageMaker.cri.pageNum }'>
@@ -70,7 +70,6 @@
 	</nav>
 	<script>
 		let searchForm = $('#searchForm');
-		let moveForm = $('#moveForm');
 
 		/* 작거 검색 버튼 동작 */
 		$("#searchForm button").on("click", function(e){
@@ -89,17 +88,6 @@
 			
 		});
 
-
-		/* 페이지 이동 버튼 */
-		$(".pageMaker_btn a").on("click", function(e){
-			
-			e.preventDefault();
-			
-			moveForm.find("input[name='pageNum']").val($(this).attr("href"));
-			
-			moveForm.submit();
-			
-		});
 	
 	</script>
 	</html>

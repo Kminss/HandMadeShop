@@ -28,13 +28,6 @@ public class MapperTest {
 	 * 
 	 * }
 	 */
-	@Test
-	public void pageList() {
-		Criteria cri = new Criteria();
-		cri.setKeyword("TEST85");
-		int total = handDAO.getListTotal();
-		System.out.println("total...." + total);
-	}
 //	@Test
 //	public void list() {
 //		int handType = 1;

@@ -39,14 +39,21 @@ public class HandService {
 				fileDAO.addFile(imgDTO);
 			}
 	}
-	
-	public int getListTotal() {
-		return handDAO.getListTotal();
-	}
-	
+	//최신 상품 목록
 	public List<HandDTO> newList() {
 		return handDAO.newList();
 	}
+	
+	public List<HandDTO> getListPaging(Map<String, Object> map) {
+		
+		return handDAO.getListPaging(map);
+	}
+	
+	public int getListTotal(Map<String, Object> map) {
+		return handDAO.getListTotal(map);
+	}
+	
+	
 
 	public HandDTO select(int handNum) {
 		return handDAO.select(handNum);
@@ -60,8 +67,4 @@ public class HandService {
 		return handDAO.delete(map);
 	}
 
-	public List<HandDTO> getListPaging(Map<String, Object> map) {
-		
-		return handDAO.getListPaging(map);
-	}
 }

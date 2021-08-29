@@ -53,9 +53,8 @@
 						<form class="searchForm" id="searchForm" action="/hand/list" method="get">
 							<input  name="keyword" type="search" placeholder="Search"
 								aria-label="Search">
-							<input type="hidden" name="pageNum" value='${pageMaker.cri.pageNum }'>
-                    		<input type="hidden" name="amount" value='${pageMaker.cri.amount}'>
-                    		<input type="hidden" name="type" value="G">
+							<input type="hidden" name="pageNum" value="${param.pageNum }">
+                    		<input type="hidden" name="amount" value="${param.amount}">
 							<button id="searchForm button" class="btn btn-outline-success my-2 my-sm-0"
 								type="submit">검색</button>
 						</form>
@@ -68,8 +67,9 @@
 			</div>
 		</div>
 	</nav>
+	<script src="/js/jquery-3.5.1.min.js"></script>
 	<script>
-		let searchForm = $('#searchForm');
+		let searchForm = $("#searchForm");
 
 		/* 작거 검색 버튼 동작 */
 		$("#searchForm button").on("click", function(e){

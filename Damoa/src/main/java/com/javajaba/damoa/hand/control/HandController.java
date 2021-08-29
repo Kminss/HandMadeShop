@@ -39,9 +39,8 @@ public class HandController {
 	@RequestMapping("/list")
 	public String list(Model model, Criteria cri, String handType) {
 
-		logger.info("boardListGET");
 		Map<String, Object> map = new HashMap<String, Object>();
-		logger.info("page :" + cri.getPageNum() + "amount : " + cri.getAmount());
+		logger.info("page :" + cri.getPageNum() + "amount : " + cri.getKeyword());
 		map.put("cri", cri);
 		if (handType != null) {
 			map.put("handType", Integer.parseInt(handType));

@@ -6,8 +6,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
 
 <!-- criteria(검색조건) -->
 	<sql id="criteria">
-		    <if test="keyword != null">
-			    handTitle like '%' || #{keyword} || '%' and
+		    <if test="cri.keyword != '' and cri.keyword != null">
+			  and handTitle like '%' || #{cri.keyword} || '%' 
 			</if>
 	</sql>
 	
@@ -42,16 +42,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
                 select /*+INDEX_DESC(handmade pk_handmade) */ rownum  as rn, handNum, mId, handTitle, handContent, handType, handPrice, handDate, handUpdate
                   
                 from handmade
-                where
+                where 
+                rownum <= #{cri.pageNum} * #{cri.amount}
                  ]]>
-               	<include refid="criteria"></include>
-                 
-				<if test="handType != null and handType > 0 ">
-				handType = #{handType} and
-				</if>
-                 <![CDATA[
-                  rownum <= #{cri.pageNum} * #{cri.amount}) 
-                
+               		<include refid="criteria"></include>
+					<if test="handType != null and handType > 0 ">
+						and handType = #{handType}
+					</if>
+					)
+    <![CDATA[
         where rn > (#{cri.pageNum} -1) * #{cri.amount}
     ]]>
 	</select>
@@ -62,7 +61,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
 	<where>
 	<include refid="criteria"></include>
 	<if test="handType != null and handType > 0 ">
-	handType = #{handType}
+	and handType = #{handType}
 	</if>
 	</where>
 	</select>
@@ -72,10 +71,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
 		select *
 		from
 		handmade
-	<if test="keyword != null">
-  		
-  			where handTitle like '%' || #{keyword} || '%'
-  		</if>
+		where
+		handNum = ${handNum}
 	</select>
 
 	<!-- 상품수정 -->

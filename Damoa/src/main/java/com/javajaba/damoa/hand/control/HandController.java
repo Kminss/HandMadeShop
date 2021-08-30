@@ -1,16 +1,19 @@
 package com.javajaba.damoa.hand.control;
 
+import java.nio.channels.SeekableByteChannel;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.fasterxml.jackson.databind.deser.std.FromStringDeserializer;
 import com.javajaba.damoa.hand.commons.dto.PageMakerDTO;
 import com.javajaba.damoa.hand.commons.utill.Criteria;
+import com.javajaba.damoa.hand.dto.AttachedImgDTO;
 import com.javajaba.damoa.hand.dto.HandDTO;
 import com.javajaba.damoa.hand.service.FileService;
 import com.javajaba.damoa.hand.service.HandService;
@@ -37,24 +41,21 @@ public class HandController {
 
 	/* 게시판 목록 페이지 접속(페이징 적용) */
 	@RequestMapping("/list")
-	public String list(Model model, Criteria cri, String handType) {
+	public String list(Model model, Criteria cri, @RequestParam(value="handType", defaultValue = "0") int handType) {
 
 		Map<String, Object> map = new HashMap<String, Object>();
-		logger.info("page :" + cri.getPageNum() + "amount : " + cri.getKeyword());
+		logger.info("cri....."+cri== null? "yes" : "no");
+		if(cri == null) {cri = new Criteria(); }
 		map.put("cri", cri);
-		if (handType != null) {
-			map.put("handType", Integer.parseInt(handType));
-		}
-		logger.info("list" + handService.getListPaging(map));
+		map.put("handType", handType);
+		
 		List<HandDTO> list = handService.getListPaging(map);
-		for (int i = 0; i < list.size(); i++) {
-			list.get(i).setHandImgList(fileService.listFile(list.get(i).getHandNum()));
-			logger.info("" + list.get(i));
-		}
 		model.addAttribute("list", list);
+		
 		int total = handService.getListTotal(map);
 		PageMakerDTO pageMakerDTO = new PageMakerDTO(cri, total);
 		model.addAttribute("pageMaker", pageMakerDTO);
+		
 		return "/hand/list";
 	}
 
@@ -70,12 +71,24 @@ public class HandController {
 		return "redirect:./list";
 	}
 
-	@RequestMapping(value = "/select")
+	@RequestMapping(value = "/detail")
 	public String select(Model model, @RequestParam int handNum) {
-		model.addAttribute("handDTO", handService.select(handNum));
-		return "/hand/hand_select";
+		HandDTO handDTO = handService.detail(handNum);
+		model.addAttribute("handDTO", handDTO);
+		return "/hand/hand_detail";
+		
 	}
-
+	
+	@RequestMapping("/myList")
+	public String myList(Model model, HttpServletRequest request) {
+		MemberDTO member = (MemberDTO) request.getSession().getAttribute("member");
+		String mId = member.getmId();
+		List<HandDTO> myList = handService.getMyList(mId);
+		
+		if(!myList.isEmpty()) { model.addAttribute("myList",myList); }
+		return "/hand/hand_my_list";
+		
+	}
 	@RequestMapping("/update")
 	public String update() {
 		return "/hand/hand_update";

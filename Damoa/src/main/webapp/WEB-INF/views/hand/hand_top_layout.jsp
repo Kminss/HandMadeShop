@@ -30,8 +30,8 @@
 			<div id="navbar" class="navbar-collapse">
 				<ul class="nav navbar-nav">
 					<li class="active"><a href="/">홈</a></li>
-					<li><a href="/hand/">인기상품</a></li>
-					<li><a href="#contact">내상품</a></li>
+					<li><a href="/">최신상품</a></li>
+					<li><a href="/hand/myList">내상품</a></li>
 					<li class="dropdown"><a href="#" class="dropdown-toggle"
 						data-toggle="dropdown" role="button" aria-expanded="false">카테고리
 							<span class="caret"></span>
@@ -55,20 +55,30 @@
 								aria-label="Search">
 							<input type="hidden" name="pageNum" value="${param.pageNum }">
                     		<input type="hidden" name="amount" value="${param.amount}">
+                    			<input type="hidden" name="handType" value="${param.handType}">
 							<button id="searchForm button" class="btn btn-outline-success my-2 my-sm-0"
 								type="submit">검색</button>
 						</form>
 					</li>
-					<li><a href="./member/login">로그인</a></li>
-					<li><a href="./member/join">회원가입</a></li>
+					<c:choose>
+					<c:when test="${empty member.mId}">
+					<li><a href="/member/login">로그인</a></li>
+					<li><a href="/member/join">회원가입</a></li>
+					</c:when>
+					<c:otherwise>
+					<li><a href="/member/myPage?mId=${member.mId}"><b>${member.mId}</b>님</a></li>
+					<li><a href="/member/logout">로그아웃</a></li>
+					</c:otherwise>
+					</c:choose>
 					<li class="active"><a href="./">고객센터(미구현) <span
 							class="sr-only">(current)</span></a></li>
 				</ul>
 			</div>
 		</div>
-	</nav>
+		<!-- jQuery (부트스트랩의 자바스크립트 플러그인을 위해 필요합니다) -->
 	<script src="/js/jquery-3.5.1.min.js"></script>
-	<script>
+	
+		<script type="text/javascript">
 		let searchForm = $("#searchForm");
 
 		/* 작거 검색 버튼 동작 */
@@ -83,11 +93,11 @@
 			}
 			
 			searchForm.find("input[name='pageNum']").val("1");
-			
+			searchForm.find("input[name='amount']").val("8");
+			searchForm.find("input[name='handType']").val("0");
 			searchForm.submit();
 			
 		});
-
-	
-	</script>
+		</script>
+	</nav>
 	</html>

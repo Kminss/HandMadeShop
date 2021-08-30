@@ -28,10 +28,14 @@ public class HandDAO {
 	public List<HandDTO> getListPaging(Map<String, Object> map){
 		return sqlSessionTemplate.selectList("getListPaging", map);}
 	
-	public HandDTO select(int handNum) {
-		return sqlSessionTemplate.selectOne("select", handNum);
+	public HandDTO detail(int handNum) {
+		return sqlSessionTemplate.selectOne("detail", handNum);
 	}
-
+	
+	public List<HandDTO> getMyList(String mId){
+		return sqlSessionTemplate.selectList("myList", mId);
+	}
+	
 	public void update(HandDTO handDTO) {
 		sqlSessionTemplate.update("update", handDTO);
 	}

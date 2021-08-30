@@ -25,10 +25,6 @@ public class HomeController {
 	@RequestMapping(value = "/")
 	public String main(Model model) { // 최신 12개
 		List<HandDTO> list = handService.newList();
-		for (int i = 0; i < list.size(); i++) {
-			list.get(i).setHandImgList(fileService.listFile(list.get(i).getHandNum()));
-			logger.info("" + list.get(i));
-		}
 		model.addAttribute("list", list);
 		return "index";
 	}

@@ -23,7 +23,7 @@ public class HandService {
 	HandDAO handDAO;
 	@Autowired
 	FileDAO fileDAO;
-
+	
 	@Transactional
 	public void write(HandDTO handDTO) {
 		
@@ -39,32 +39,60 @@ public class HandService {
 				fileDAO.addFile(imgDTO);
 			}
 	}
+	
+	
 	//최신 상품 목록
+	@Transactional
 	public List<HandDTO> newList() {
-		return handDAO.newList();
+		List<HandDTO> newList = setHandImgList(handDAO.newList()) ;
+		return newList;
 	}
 	
+	//상품 목록
+	@Transactional
 	public List<HandDTO> getListPaging(Map<String, Object> map) {
-		
-		return handDAO.getListPaging(map);
+		List<HandDTO> list = setHandImgList(handDAO.getListPaging(map));
+		return list;
 	}
 	
+	//목록에 나타낼 상품 수
 	public int getListTotal(Map<String, Object> map) {
 		return handDAO.getListTotal(map);
 	}
 	
-	
-
-	public HandDTO select(int handNum) {
-		return handDAO.select(handNum);
+	//상세 정보
+	@Transactional
+	public HandDTO detail(int handNum) {
+		HandDTO handDTO = handDAO.detail(handNum);
+		
+		handDTO.setHandImgList(fileDAO.listFile(handNum));
+		return handDTO;
 	}
-
+	
+	//내 상품 리스트
+	@Transactional
+	public List<HandDTO> getMyList(String mId){
+		List<HandDTO> myList = setHandImgList(handDAO.getMyList(mId));
+		return myList;
+	}
+	//상품 수정
+	@Transactional
 	public void update(HandDTO handDTO) {
 		handDAO.update(handDTO);
 	}
-
+	
+	//상품 삭제
+	@Transactional
 	public int delete(Map<String, Object> map) {
 		return handDAO.delete(map);
 	}
-
+	
+	@Transactional
+	//게시글에 이미지 데이터 저장
+	public List<HandDTO> setHandImgList(List<HandDTO> list) {
+		for (int i = 0; i < list.size(); i++) {
+			list.get(i).setHandImgList(fileDAO.listFile(list.get(i).getHandNum()));
+		}
+		return list;
+	}
 }

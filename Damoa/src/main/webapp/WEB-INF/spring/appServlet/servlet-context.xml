@@ -35,9 +35,9 @@
 	<interceptors>
 		<interceptor>
 			<mapping path="/hand/**" />
-			<exclude-mapping path="/hand/main" />
+			<exclude-mapping path="/hand/" />
 			<exclude-mapping path="/hand/list" />
-			<exclude-mapping path="/hand/select" />
+			<exclude-mapping path="/hand/detail" />
 
 			<!--적용될 인터셉트를 지정한다. -->
 			<beans:bean

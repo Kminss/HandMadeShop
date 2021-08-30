@@ -158,9 +158,7 @@ public class FileUploadController {
 
 	// 이미지 반환
 	@RequestMapping(value="/getListFile", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE )
-	public ResponseEntity<AttachedImgDTO> getListFile(int handNum) {
-		logger.info("getAttachList.........." + handNum);
-
-		return new ResponseEntity(	fileservice.listFile(handNum), HttpStatus.OK);
+	public ResponseEntity<List<AttachedImgDTO>> getListFile(int handNum) {
+		return new ResponseEntity<List<AttachedImgDTO>>(fileservice.listFile(handNum), HttpStatus.OK);
 	}
 }

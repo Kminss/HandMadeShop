@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -26,7 +27,9 @@ public class MemberController {
 
 	// 로그인
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public String login() {
+	public String login(HttpServletRequest request) {
+		String referer = request.getHeader("Referer");
+		request.getSession().setAttribute("referer", referer);
 		return "./member/login";
 	}
 
@@ -38,11 +41,14 @@ public class MemberController {
 		map.put("mId", mId);
 		map.put("mPw", mPw);
 		MemberDTO memberDTO = memberService.Login(map);
+		String referer = (String) request.getSession().getAttribute("referer");
 		if (memberDTO != null) {
 				request.getSession().setAttribute("member", memberDTO);
-			return "redirect:/hand/main";
+				
+				logger.info("url...." + referer);
+			return "redirect: " + referer;
 		} else {
-			return "redirect:/";
+			return "/member/login_view";
 		}
 	}
 	@RequestMapping(value = "/join", method = RequestMethod.GET)
@@ -70,5 +76,10 @@ public class MemberController {
 	public String logOut(HttpServletRequest request) {
 		request.getSession().invalidate();
 		return "redirect:/";
+	}
+	@RequestMapping(value = "/myPage", method = RequestMethod.GET)
+	public String myPage(Model model, String mId) {
+		model.addAttribute("mId",mId);
+		return "/member/mypage";
 	}
 }

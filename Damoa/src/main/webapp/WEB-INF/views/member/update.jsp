@@ -13,7 +13,7 @@
 			<table class="signup_table">
 				<tr>
 					<th style="width: 100px" scope="row"><label for="mId">아이디</label></th>
-					<td><input type="text" id="mId" name="mId" value="${member.mId"/></td>
+					<td><input type="text" id="mId" name="mId" value="${member.mId}"/></td>
 				</tr>
 				<tr>
 					<th scope="row"><label for="mPw">패스워드</label></th>

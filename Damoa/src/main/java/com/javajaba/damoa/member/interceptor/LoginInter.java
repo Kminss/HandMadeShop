@@ -12,6 +12,7 @@ public class LoginInter extends HandlerInterceptorAdapter {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
+		logger.info("req url....." + request.getHeader("referer"));
 		if (request.getSession().getAttribute("member") == null) {
 			response.sendRedirect("/member/login");
 			return false;

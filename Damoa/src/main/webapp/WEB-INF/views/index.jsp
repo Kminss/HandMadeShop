@@ -64,7 +64,7 @@
 	</div>
 	<!-- list -->
 	<div class="container">
-		<h3>최신작품</h3>
+		<h3>최신상품</h3>
 		<div class="row">
 			<c:forEach var="item" items="${list}">
 				<div class="col-sm-6 col-md-3" >
@@ -85,7 +85,7 @@
 								<span class="badge badge-secondary">${item.handType} </span>
 							</p>
 							<p>
-								<a href="#" class="btn btn-primary" role="button">바로구매(미구현)</a> <a
+								<a href="/hand/order?handNum=${item.handNum }" class="btn btn-primary" role="button">바로구매</a> <a
 									href="/hand/detail?handNum=${item.handNum}" class="btn btn-default" role="button">상세정보</a>
 							</p>
 							<p>등록일 : <fmt:formatDate value="${item.handDate}" pattern="yyyy-MM-dd"/></p>

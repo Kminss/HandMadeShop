@@ -32,8 +32,8 @@ public class HandDAO {
 		return sqlSessionTemplate.selectOne("detail", handNum);
 	}
 	
-	public List<HandDTO> getMyList(String mId){
-		return sqlSessionTemplate.selectList("myList", mId);
+	public List<HandDTO> getMyList(Map<String, Object> map){
+		return sqlSessionTemplate.selectList("myList", map);
 	}
 	
 	public void update(HandDTO handDTO) {

@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.CollectionUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -37,25 +38,25 @@ public class HandController {
 	@Autowired
 	FileService fileService;
 
-	
-
 	/* 게시판 목록 페이지 접속(페이징 적용) */
 	@RequestMapping("/list")
-	public String list(Model model, Criteria cri, @RequestParam(value="handType", defaultValue = "0") int handType) {
+	public String list(Model model, Criteria cri, @RequestParam(value = "handType", defaultValue = "0") int handType) {
 
 		Map<String, Object> map = new HashMap<String, Object>();
-		logger.info("cri....."+cri== null? "yes" : "no");
-		if(cri == null) {cri = new Criteria(); }
+		logger.info("cri....." + cri == null ? "yes" : "no");
+		if (cri == null) {
+			cri = new Criteria();
+		}
 		map.put("cri", cri);
 		map.put("handType", handType);
-		
+
 		List<HandDTO> list = handService.getListPaging(map);
 		model.addAttribute("list", list);
-		
+
 		int total = handService.getListTotal(map);
 		PageMakerDTO pageMakerDTO = new PageMakerDTO(cri, total);
 		model.addAttribute("pageMaker", pageMakerDTO);
-		
+
 		return "/hand/list";
 	}
 
@@ -63,7 +64,7 @@ public class HandController {
 	public String write() {
 		return "/hand/hand_insert";
 	}
-
+	
 	@RequestMapping(value = "/write", method = RequestMethod.POST)
 	public String write(HandDTO handDTO) {
 		logger.info("리스트 : " + handDTO.getHandImgList());
@@ -76,19 +77,33 @@ public class HandController {
 		HandDTO handDTO = handService.detail(handNum);
 		model.addAttribute("handDTO", handDTO);
 		return "/hand/hand_detail";
-		
+
 	}
-	
+
 	@RequestMapping("/myList")
-	public String myList(Model model, HttpServletRequest request) {
+	public String myList(Model model, HttpServletRequest request, Criteria cri) {
+		Map<String, Object> map = new HashMap<String, Object>();
 		MemberDTO member = (MemberDTO) request.getSession().getAttribute("member");
 		String mId = member.getmId();
-		List<HandDTO> myList = handService.getMyList(mId);
+		map.put("mId", mId);
+		logger.info("cri....." + cri == null ? "yes" : "no");
+		if (cri == null) {
+			cri = new Criteria();
+		}
+		map.put("cri", cri);
 		
-		if(!myList.isEmpty()) { model.addAttribute("myList",myList); }
+		List<HandDTO> myList = handService.getMyList(map);
+		
+		if (!myList.isEmpty()) {
+			model.addAttribute("myList", myList);
+			int total = handService.getListTotal(map);
+			PageMakerDTO pageMakerDTO = new PageMakerDTO(cri, total);
+			model.addAttribute("pageMaker", pageMakerDTO);
+		}
 		return "/hand/hand_my_list";
-		
+
 	}
+
 	@RequestMapping("/update")
 	public String update() {
 		return "/hand/hand_update";
@@ -125,5 +140,17 @@ public class HandController {
 		} else {
 			return "/member/login";
 		}
+	}
+	@RequestMapping(value = "/order", method = RequestMethod.GET)
+	public String order(Model model, @RequestParam int handNum) {
+		HandDTO handDTO = handService.detail(handNum);
+		model.addAttribute("handDTO", handDTO);
+		return "/hand/hand_order";
+	}
+	@RequestMapping(value = "/order", method = RequestMethod.POST)
+	public String order(HandDTO handDTO) {
+		logger.info("리스트 : " + handDTO.getHandImgList());
+		handService.write(handDTO);
+		return "/hand/order_view";
 	}
 }

@@ -42,14 +42,17 @@ public class MemberController {
 		map.put("mPw", mPw);
 		MemberDTO memberDTO = memberService.Login(map);
 		String referer = (String) request.getSession().getAttribute("referer");
-		if (memberDTO != null) {
-				request.getSession().setAttribute("member", memberDTO);
-				
-				logger.info("url...." + referer);
-			return "redirect: " + referer;
-		} else {
-			return "/member/login_view";
-		}
+		//아이디 존재x 또는 틀렸을 경우
+		if (memberDTO == null) { return "/member/login_view"; }
+		
+		//아이디 존재 할 경우
+		request.getSession().setAttribute("member", memberDTO);
+		
+		
+		//로그인 후 요청페이지 이동
+		logger.info("url...." + referer);
+		if (referer == null) {return "redirect:/";}		
+		return "redirect: " + referer;
 	}
 	@RequestMapping(value = "/join", method = RequestMethod.GET)
 	public String join() {

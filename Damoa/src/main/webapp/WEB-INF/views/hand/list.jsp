@@ -78,7 +78,7 @@
 							</p>
 							<p>${item.handContent }</p>
 							<p>
-								<a href="#" class="btn btn-primary" role="button">바로구매(미구현)</a>
+								<a href="/hand/order?handNum=${item.handNum }" class="btn btn-primary" role="button">바로구매</a>
 								<a href="/hand/select?handNum=${item.handNum}" class="btn btn-default"
 									role="button">상세정보</a> <br>
 							</p>

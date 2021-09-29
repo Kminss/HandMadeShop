@@ -28,11 +28,11 @@
 		<jsp:param name="amount" value="${pageMaker.cri.amount }" />
 	</jsp:include>
 	<!-- list -->
-	
-	<c:if test="${empty myList}"><script>alert("dd");</script></c:if>
+
 	<div class="container">
 		<div class="row">
-			<h2 class="text-center" id="category">${param.handType}</h2>
+			<h2 class="text-center" id="category">내 상품</h2>
+			<div class="text-right"><a href="/hand/write" class="btn btn-primary" role="button">상품등록</a></div>
 			<nav class="text-right">
 				<ul class="pagination" id="pagination">
 					<c:if test="${pageMaker.prev }">
@@ -42,7 +42,7 @@
 					<c:forEach var="num" begin="${pageMaker.startPage}"
 						end="${pageMaker.endPage }">
 						<li class=${pageMaker.cri.pageNum == num ? "active":"" }><a
-							href="${num}">${num } <span class="sr-only">(current)</span></a></li>
+							href="${num}" id="page">${num } <span class="sr-only">(current)</span></a></li>
 					</c:forEach>
 					<c:if test="${pageMaker.next}">
 						<li><a href="${pageMaker.endPage + 1 }" aria-label="Next">
@@ -50,18 +50,19 @@
 						</a></li>
 					</c:if>
 					<li><form id="moveForm" method="get">
-							<input type="hidden" name="handType" value="${param.handType}">
-							<input type="hidden" name="pageNum"
-								value="${pageMaker.cri.pageNum }"> <input type="hidden"
-								name="amount" value="${pageMaker.cri.amount }">
+							<input type="hidden" name="handType"
+								value="${param.handType == null? 0 : param.handType}"> <input
+								type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }">
+							<input type="hidden" name="amount"
+								value="${pageMaker.cri.amount }">
 						</form></li>
 				</ul>
 
 			</nav>
-			<c:if test="${empty list}">
+			<c:if test="${empty myList}">
 				<h2 class="text-center">등록된 상품이 없습니다.</h2>
 			</c:if>
-			<c:forEach var="item" items="${list}">
+			<c:forEach var="item" items="${myList}">
 				<div class="col-sm-6 col-md-3">
 					<div class="thumbnail">
 						<c:choose>
@@ -81,9 +82,9 @@
 							</p>
 							<p>${item.handContent }</p>
 							<p>
-								<a href="#" class="btn btn-primary" role="button">바로구매(미구현)</a>
-								<a href="/hand/select?handNum=${item.handNum}" class="btn btn-default"
-									role="button">상세정보</a> <br>
+								<a href="/hand/order" class="btn btn-primary" role="button">바로구매</a>
+								<a href="/hand/select?handNum=${item.handNum}"
+									class="btn btn-default" role="button">상세정보</a> <br>
 							</p>
 							<p>
 								등록일 :
@@ -103,71 +104,42 @@
 	<script src="/bootstrap/js/bootstrap.min.js"></script>
 
 	<script type="text/javascript">
-	
 		$(document).ready(
 				function() {
 					//handType  한글로 수정 출력
 					let handTypeTitle = document.getElementById("category")
-					let handTypeBadge = document
-							.getElementsByClassName("badge badge-secondary")
-							
-					let choice = ${param.handType}
-					switch (choice) {
-					case 0:
-						handTypeTitle.innerHTML = "전체목록"
-						break;
-					case 1:
-						handTypeTitle.innerHTML = "인테리어"
-						for (var i = 0; i < handTypeBadge.length; i++) {
-							var badge = handTypeBadge[i];
-							badge.innerHTML = "인테리어"
+					let handTypeBadge = document.getElementsByClassName("badge badge-secondary")
+					for (var i = 0; i < handTypeBadge.length; i++) {
+						let choice = handTypeBadge[i].textContent
+						switch (choice) {
+						case 1:
+							handTypeBadge[i].textContent = "인테리어"
+							break;
+						case 2:
+							handTypeBadge[i].textContent = "악세서리"
+							break;
+						case 3:
+							handTypeBadge[i].textContent = "가구"
+							break;
+						case 4:
+							handTypeBadge[i].textContent = "주방/생활"
+							break;
+						case 5:
+							handTypeBadge[i].textContent = "디저트"
+							break;
+						default:
+							handTypeBadge[i].textContent = "기타"
+							break;
 						}
-						break;
-					case 2:
-						handTypeTitle.innerHTML = "악세서리"
-						for (var i = 0; i < handTypeBadge.length; i++) {
-							var badge = handTypeBadge[i];
-							badge.innerHTML = "악세서리"
-						}
-						break;
-					case 3:
-						handTypeTitle.innerHTML = "가구"
-						for (var i = 0; i < handTypeBadge.length; i++) {
-							var badge = handTypeBadge[i];
-							badge.innerHTML = "가구"
-						}
-						break;
-					case 4:
-						handTypeTitle.innerHTML = "주방 / 생활"
-						for (var i = 0; i < handTypeBadge.length; i++) {
-							var badge = handTypeBadge[i];
-							badge.innerHTML = "주방/생활"
-						}
-						break;
-					case 5:
-						handTypeTitle.innerHTML = "디저트"
-						for (var i = 0; i < handTypeBadge.length; i++) {
-							var badge = handTypeBadge[i];
-							badge.innerHTML = "디저트"
-						}
-						break;
-					case "":
-						break;
-					default:
-						handTypeTitle.innerHTML = "기타"
-						for (var i = 0; i < handTypeBadge.length; i++) {
-							var badge = handTypeBadge[i];
-							badge.innerHTML = "기타"
-						}
-						break;
 					}
 				});
-		let moveForm = $("#moveForm");
-		
-		$(".pagination a").on("click", function(e) {
+		let moveForm = $('#moveForm');
+		onclick = 'preventClick(event)'
+
+		$("li #page").on("click", function(e) {
 			e.preventDefault();
 			moveForm.find("input[name='pageNum']").val($(this).attr("href"));
-			moveForm.attr("action", "/hand/list");
+			moveForm.attr("action", "/hand/myList");
 			moveForm.submit();
 		});
 	</script>

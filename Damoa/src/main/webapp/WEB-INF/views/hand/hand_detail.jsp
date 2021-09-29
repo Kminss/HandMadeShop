@@ -90,7 +90,7 @@
 						<p>
 							<a href="#" class="btn btn-primary" role="button">구매</a> <a
 								href="/hand/select?handNum=${item.handNum}"
-								class="btn btn-default" role="button">장바구니</a> <br>
+								class="btn btn-default" role="button">장바구니(미구현)</a> <br>
 						</p>
 						<p>
 							등록일 :

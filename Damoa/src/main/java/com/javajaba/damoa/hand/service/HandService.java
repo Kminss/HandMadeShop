@@ -71,8 +71,8 @@ public class HandService {
 	
 	//내 상품 리스트
 	@Transactional
-	public List<HandDTO> getMyList(String mId){
-		List<HandDTO> myList = setHandImgList(handDAO.getMyList(mId));
+	public List<HandDTO> getMyList(Map<String, Object> map){
+		List<HandDTO> myList = setHandImgList(handDAO.getMyList(map));
 		return myList;
 	}
 	//상품 수정

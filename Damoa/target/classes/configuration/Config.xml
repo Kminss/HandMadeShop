@@ -6,5 +6,6 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-co
 		<typeAlias alias="HandDTO" type="com.javajaba.damoa.hand.dto.HandDTO" />
 		<typeAlias alias="AttachedImgDTO" type="com.javajaba.damoa.hand.dto.AttachedImgDTO"/>
 		<typeAlias alias="MemberDTO" type="com.javajaba.damoa.member.dto.MemberDTO"/>
+		<typeAlias alias="OrderDTO" type="com.javajaba.damoa.hand.dto.OrderDTO" />
 	</typeAliases>
 </configuration>

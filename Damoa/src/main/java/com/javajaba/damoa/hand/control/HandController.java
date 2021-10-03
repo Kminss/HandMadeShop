@@ -25,6 +25,7 @@ import com.javajaba.damoa.hand.commons.dto.PageMakerDTO;
 import com.javajaba.damoa.hand.commons.utill.Criteria;
 import com.javajaba.damoa.hand.dto.AttachedImgDTO;
 import com.javajaba.damoa.hand.dto.HandDTO;
+import com.javajaba.damoa.hand.dto.OrderDTO;
 import com.javajaba.damoa.hand.service.FileService;
 import com.javajaba.damoa.hand.service.HandService;
 import com.javajaba.damoa.member.dto.MemberDTO;
@@ -141,16 +142,27 @@ public class HandController {
 			return "/member/login";
 		}
 	}
-	@RequestMapping(value = "/order", method = RequestMethod.GET)
+	//주문 입력
+	@RequestMapping(value = "/orderInsert", method = RequestMethod.GET)
 	public String order(Model model, @RequestParam int handNum) {
+		//주문할 상품정보 전달
 		HandDTO handDTO = handService.detail(handNum);
 		model.addAttribute("handDTO", handDTO);
 		return "/hand/hand_order";
 	}
-	@RequestMapping(value = "/order", method = RequestMethod.POST)
-	public String order(HandDTO handDTO) {
-		logger.info("리스트 : " + handDTO.getHandImgList());
-		handService.write(handDTO);
+	
+	@RequestMapping(value = "/orderInsert", method = RequestMethod.POST)
+	public String order(Model model, OrderDTO orderDTO) {
+		handService.orderInsert(orderDTO);
+		model.addAttribute("orderDTO", orderDTO);
 		return "/hand/order_view";
 	}
+	//주문 내역 
+	@RequestMapping(value = "/myOrder")
+	public String myOrder(Model model, @RequestParam String mId) {
+		List<OrderDTO> list = handService.myOrder(mId);
+		model.addAttribute("myOrder", list);
+		return "/hand/hand_myOrder";
+	}
+	//주문 취소
 }

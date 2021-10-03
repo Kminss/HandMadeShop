@@ -110,4 +110,34 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
 		where
 		mId=#{mId} and handNum = #{handNum}
 	</delete>
+	
+	<!--  주문 -->
+	<insert id="orderInsert" parameterType="OrderDTO">
+	<selectKey resultType="int" keyProperty="orderId" order="BEFORE">
+			SELECT HAND_ORDER_SEQ.nextval from dual
+		</selectKey>
+		insert into
+		HAND_ORDER ( orderId, mId, orderRec, orderAddr1, orderAddr2, orderAddr3, orderPh, handNUm )
+		values 
+		( #{orderId}, #{mId}, #{orderRec}, #{orderAddr1}, #{orderAddr2}, #{orderAddr3}, #{orderPh}, #{handNum} )
+	</insert>
+	<!-- 주문내역-->
+	<select id="myOrder" parameterType="String" resultType="OrderDTO">
+	select * from HAND_ORDER
+	where mId = #{mId}
+	</select>
+	<!-- 주문상세 보기 -->
+	<select id="orderDetail" parameterType="int" resultType="OrderDTO">
+		select *
+		from
+		HAND_ORDER
+		where
+		orderId = #{orderID}
+	</select>
+	<!--  주문 취소 -->
+	<delete id="orderDelete" parameterType="int">
+	delete from HAND_ORDER
+	where 
+	orderId = #{orderId}
+	</delete>
 </mapper>

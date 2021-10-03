@@ -14,6 +14,7 @@ import com.javajaba.damoa.hand.dao.FileDAO;
 import com.javajaba.damoa.hand.dao.HandDAO;
 import com.javajaba.damoa.hand.dto.AttachedImgDTO;
 import com.javajaba.damoa.hand.dto.HandDTO;
+import com.javajaba.damoa.hand.dto.OrderDTO;
 
 
 @Service
@@ -76,13 +77,11 @@ public class HandService {
 		return myList;
 	}
 	//상품 수정
-	@Transactional
 	public void update(HandDTO handDTO) {
 		handDAO.update(handDTO);
 	}
 	
 	//상품 삭제
-	@Transactional
 	public int delete(Map<String, Object> map) {
 		return handDAO.delete(map);
 	}
@@ -94,5 +93,21 @@ public class HandService {
 			list.get(i).setHandImgList(fileDAO.listFile(list.get(i).getHandNum()));
 		}
 		return list;
+	}
+	//주문 입력
+	public void orderInsert(OrderDTO order) {
+		handDAO.orderInsert(order);
+	}
+	//주문 내역
+	public List<OrderDTO> myOrder(String mId) {
+		return handDAO.myOrder(mId);
+	}
+	//주문 상세
+	public OrderDTO orderDetail(int orderId) {
+		return handDAO.orderDetail(orderId);
+	}
+	//주문 삭제
+	public void orderDelete(int orderId) {
+		handDAO.orderDelete(orderId);
 	}
 }

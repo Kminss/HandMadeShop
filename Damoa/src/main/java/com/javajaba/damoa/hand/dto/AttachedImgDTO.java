@@ -7,8 +7,14 @@ public class AttachedImgDTO {
 	private String uploadPath;
 	private String fileName;
 	private String uuid;
-	private int attachedNum;
+	private int handNum;
 	
+	public int getHandNum() {
+		return handNum;
+	}
+	public void setHandNum(int handNum) {
+		this.handNum = handNum;
+	}
 	public String getUploadPath() {
 		return uploadPath;
 	}
@@ -27,16 +33,10 @@ public class AttachedImgDTO {
 	public void setUuid(String uuid) {
 		this.uuid = uuid;
 	}
-	public int getAttachedNum() {
-		return attachedNum;
-	}
-	public void setAttachedNum(int attachedNum) {
-		this.attachedNum = attachedNum;
-	}
 	@Override
 	public String toString() {
 		return "AttachedImgDTO [uploadPath=" + uploadPath + ", fileName=" + fileName + ", uuid=" + uuid
-				+ ", attachedNum=" + attachedNum + "]";
+				+ ", handNum = " + handNum +  "]";
 	}
 	
 }

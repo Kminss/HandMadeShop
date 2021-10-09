@@ -76,9 +76,26 @@ public class HandService {
 		List<HandDTO> myList = setHandImgList(handDAO.getMyList(map));
 		return myList;
 	}
+	
+	@Transactional
 	//상품 수정
 	public void update(HandDTO handDTO) {
+		
+		
 		handDAO.update(handDTO);
+		//이미지 첨부파일 수정
+		int handNum = handDTO.getHandNum();
+		logger.info("handNum...." + handNum);
+		fileDAO.deleteFile(handDTO.getHandNum()); //기존 첨부파일 데이터 삭제
+		logger.info("리스트.." + handDTO.getHandImgList());
+		if (handDTO.getHandImgList() == null || handDTO.getHandImgList().size() == 0) {
+			return;
+		}
+		for (AttachedImgDTO imgDTO : handDTO.getHandImgList()) {
+			if(imgDTO.getFileName()== null ) {continue;}
+			imgDTO.setHandNum(handNum);
+			fileDAO.updateFile(imgDTO);
+		}
 	}
 	
 	//상품 삭제
@@ -103,11 +120,11 @@ public class HandService {
 		return handDAO.myOrder(mId);
 	}
 	//주문 상세
-	public OrderDTO orderDetail(int orderId) {
+	public OrderDTO orderDetail(String orderId) {
 		return handDAO.orderDetail(orderId);
 	}
 	//주문 삭제
-	public void orderDelete(int orderId) {
+	public void orderDelete(String orderId) {
 		handDAO.orderDelete(orderId);
 	}
 }

@@ -136,7 +136,7 @@ public class FileUploadController {
 
 	// 이미지 파일 삭제
 	@RequestMapping(value = "/deleteFile", method = RequestMethod.POST)
-	public ResponseEntity<String> deleteFile(String fileName) {
+	public ResponseEntity<String> deleteFile(String fileName, String uuid) {
 
 		File file = null;
 

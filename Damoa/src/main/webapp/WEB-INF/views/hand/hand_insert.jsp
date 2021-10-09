@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>글 등록</title>
+<title>상품 등록</title>
 <style type="text/css">
 .fileDrop {
 	width: 100%;
@@ -88,13 +88,13 @@ textarea {
 			<tr>
 				<th>* 제목</th>
 				<td><input type="text" id="handTitle" name="handTitle" required
-					placeholder="String varchar2 300">
+					placeholder="String varchar2 300" >
 					<div class="valid">제목을 입력하세요.</div></td>
 			</tr>
 			<tr>
 				<th>* 가격</th>
 				<td><input type="text" title="가격" name="handPrice"
-					id="handPrice" class="handPrice" />&nbsp; 원
+					id="handPrice" class="handPrice"  />&nbsp; 원
 					<div class="valid">가격를 입력하세요.</div></td>
 
 			</tr>

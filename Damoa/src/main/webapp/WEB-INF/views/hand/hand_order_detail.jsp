@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>상품 주문</title>
+<title>주문 완료</title>
 <style type="text/css">
 .fileDrop {
 	width: 100%;
@@ -79,32 +79,26 @@ textarea {
 <script type="text/javascript" src="/js/jquery-3.5.1.min.js"></script>
 </head>
 <body>
-	<h2>상품 주문</h2>
-	<form action="/hand/order" method="post" name="order_form"
-		enctype="multipart/form-data">
+	<h2>주문 정보</h2>
 		<h3>구매자 정보</h3>
 		<table class="w-pct60">
 			<tr>
 				<th>이름</th>
-				<td>${member.mName}</td>
-			</tr>
-			<tr>
-				<th>이메일</th>
-				<td>${member.mEmail}</td>
+				<td>${orderDTO.orderRec}</td>
 			</tr>
 			<tr>
 				<th>휴대폰 번호</th>
-				<td>${member.mPh }</td>
+				<td>${orderDTO.orderPh }</td>
 			</tr>
 			<tr>
 				<th>주소</th>
-				<td>${member.mAddr }</td>
+				<td>${orderDTO.orderAddr }</td>
 			</tr>
 		</table>
 		<h3>상품 정보</h3>
 		<table class="w-pct60">
 			<tr>
-				<th>제목</th>
+				<th>이름</th>
 				<td>${handDTO.handTitle}</td>
 			</tr>
 			<tr>
@@ -117,40 +111,16 @@ textarea {
 		<table class="w-pct60">
 			<tr>
 				<th>총가격</th>
-				<td>${handDTO.handPrice}</td>
+				<td>${orderDTO.orderPrice}</td>
 			</tr>
-			<tr>
-				<th>결제 방법</th>
-				<td><input type="radio" name="orderPayment" value="card">신용카드
-					<input type="radio" name="orderPayment" value="transfer">계좌이체 <input
-					type="radio" name="orderPayment" value="phone">휴대폰</td>
-
+				<tr>
+				<th>결제 방식</th>
+				<td>${orderDTO.orderPayment }</td>
 			</tr>
 		</table>
-		<input type="hidden" value="${member.mId}" name="mId">
-		<input type="hidden" value="${member.mName}" name="orderRec">
-		<input type="hidden" value="${member.mPost}" name="orderPost">
-		<input type="hidden" value="${member.mAddr}" name="orderAddr">
-		<input type="hidden" value="${member.mPh}" name="orderPh">
-		<input type="hidden" value="${handDTO.handPrice}" name="orderPrice">
-		<input type="hidden" value="${param.handNum}" name="handNum">
-	</form>
 	<div class="btnSet">
-		<a class="btn-fill" onclick="formCheck()">결제</a> <a class="btn-empty"
-			href="/">취소</a>
+		<a class="btn-fill" href = "/">메인</a> <a class="btn-empty"
+			href="/hand/orderDelete?orderId=${orderDTO.orderId}">주문 취소</a>
 	</div>
 </body>
-<script type="text/javascript">
-function formCheck() {
-    var payment = document.forms[0].orderPayment.value;
- 
-    if (payment == null || payment == "") { 
-        alert('결제방법을 선택하세요'); 
-        document.forms[0].orderPayment.focus(); 
-        return false; 
-    }
-    document.order_form.submit();
-}
-</script>
 </html>
-

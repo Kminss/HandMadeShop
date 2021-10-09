@@ -21,4 +21,12 @@ public class FileService {
 	public List<AttachedImgDTO> listFile(int handNum) {
 		return fileDAO.listFile(handNum);
 	}
+	//db파일데이터 삭제
+	public void deleteFile(int handNum) {
+		fileDAO.deleteFile(handNum);
+	}
+	//파일 수정
+	public void updateFile(AttachedImgDTO attachedImgDTO) {
+		fileDAO.updateFile(attachedImgDTO);
+	}
 }

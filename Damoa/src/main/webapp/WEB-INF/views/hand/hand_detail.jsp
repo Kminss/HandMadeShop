@@ -36,33 +36,27 @@
 					data-ride="carousel">
 					<!-- Indicators -->
 					<ol class="carousel-indicators">
-						<li data-target="#carousel-example-generic" data-slide-to="0"
-							class="active"></li>
-						<c:if test="${fn:length(jstlList)>0}">
-							<c:forEach var="cnt" begin="0"
-								end="${fn:length(handDTO.handImgList)}" step="1">
+							<c:set var="img" value="${handDTO.handImgList}" />
+							<c:forEach var="li" items="${img}" varStatus="cnt" begin="0">
 								<li data-target="#carousel-example-generic"
-									data-slide-to="${cnt}"></li>
+									data-slide-to="${cnt.index}"></li>
 							</c:forEach>
-						</c:if>
 					</ol>
 
 					<!-- Wrapper for slides -->
 					<div class="carousel-inner" role="listbox">
 						<div class="item active">
-							<c:set var="img1" value="${handDTO.handImgList}" />
+							
 							<img
-								src="/file/display?fileName=${fn:replace(img1[0].uploadPath,'\\','/') }/${img1[0].uuid}_${img1[0].fileName}">
+								src="/file/display?fileName=${fn:replace(img[0].uploadPath,'\\','/') }/${img[0].uuid}_${img[0].fileName}">
 						</div>
-						<c:if test="${fn:length(handDTO.handImgList)>0}">
-							<c:forEach var="img" items="${handDTO.handImgList}"
+							<c:forEach var="img1" items="${img}"
 								varStatus="vs" begin="1">
 								<div class="item">
 									<img
-										src="/file/display?fileName=${fn:replace(img[vs.index].uploadPath,'\\','/') }${img[vs.index].uuid}_${img[vs.index].fileName}">
+										src="/file/display?fileName=${fn:replace(img1.uploadPath,'\\','/')}/${img1.uuid}_${img1.fileName}">
 								</div>
 							</c:forEach>
-						</c:if>
 					</div>
 
 					<!-- Controls -->
@@ -118,6 +112,19 @@
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
 		crossorigin="anonymous"></script>
-
+<script>
+$(document).ready(
+		function() {
+			//handType  한글로 수정 출력
+				let handTypeBadge = document.getElementsByClassName("badge badge-secondary")
+						var badge = handTypeBadge[0];
+						if(badge.innerText == '1'){ badge.innerHTML = "인테리어"}
+						if(badge.innerText == '2'){ badge.innerHTML = "악세서리"}
+						if(badge.innerText == '3'){ badge.innerHTML = "가구"}
+						if(badge.innerText == '4'){ badge.innerHTML = "주방/생활"}
+						if(badge.innerText == '5'){ badge.innerHTML = "디저트"}
+						if(badge.innerText == '6'){ badge.innerHTML = "기타"}
+		});
+</script>
 </body>
 </html>

@@ -30,7 +30,6 @@
 			<div id="navbar" class="navbar-collapse">
 				<ul class="nav navbar-nav">
 					<li class="active"><a href="/">홈</a></li>
-					<li><a href="/">최신상품</a></li>
 					<li><a href="/hand/myList">내상품</a></li>
 					<li class="dropdown"><a href="#" class="dropdown-toggle"
 						data-toggle="dropdown" role="button" aria-expanded="false">카테고리
@@ -46,6 +45,8 @@
 
 							<li><a href="/hand/list?handType=5">디저트</a></li>
 						</ul></li>
+						<li ><a href="./">고객센터(미구현) <span
+							class="sr-only">(current)</span></a></li>
 				</ul>
 
 				<ul class="nav navbar-nav navbar-right">
@@ -66,12 +67,11 @@
 					<li><a href="/member/join">회원가입</a></li>
 					</c:when>
 					<c:otherwise>
-					<li><a href="/member/myPage?mId=${member.mId}"><b>${member.mId}</b>님</a></li>
+					<li><a href="/member/myPage"><b>${member.mId}</b>님</a></li>
 					<li><a href="/member/logout">로그아웃</a></li>
+					<li><a href="/member/myPage">마이페이지</a></li>
 					</c:otherwise>
 					</c:choose>
-					<li class="active"><a href="./">고객센터(미구현) <span
-							class="sr-only">(current)</span></a></li>
 				</ul>
 			</div>
 		</div>

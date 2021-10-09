@@ -17,5 +17,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
 	select * from attached_img
 	 where handNum = #{handNum}
 	</select>
-
+	
+	<delete id="deleteFile" parameterType="int">
+	delete from attached_img
+	where
+	handNum = #{handNum}
+	</delete>
+	<insert id ="updateFile" parameterType="AttachedImgDTO">
+	insert into 
+		attached_img (handNum, fileName, uuid, uploadPath) 
+		values (#{handNum}, #{fileName}, #{uuid}, #{uploadPath})
+	</insert>
 </mapper>

@@ -10,7 +10,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- 위 3개의 메타 태그는 *반드시* head 태그의 처음에 와야합니다; 어떤 다른 콘텐츠들은 반드시 이 태그들 *다음에* 와야 합니다 -->
-<title>부트스트랩 101 템플릿</title>
+<title>내 상품</title>
 
 <!-- 부트스트랩 -->
 <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -32,7 +32,9 @@
 	<div class="container">
 		<div class="row">
 			<h2 class="text-center" id="category">내 상품</h2>
-			<div class="text-right"><a href="/hand/write" class="btn btn-primary" role="button">상품등록</a></div>
+			<div class="text-right">
+				<a href="/hand/write" class="btn btn-primary" role="button">상품등록</a>
+			</div>
 			<nav class="text-right">
 				<ul class="pagination" id="pagination">
 					<c:if test="${pageMaker.prev }">
@@ -75,22 +77,23 @@
 									src="/file/display?fileName=${fn:replace(img.uploadPath,'\\','/') }/s_${img.uuid}_${img.fileName}" />
 							</c:otherwise>
 						</c:choose>
-						<div class="caption">
+						<div class="caption" id="item">
 							<h3>${item.handTitle}</h3>
 							<p>
 								<span class="badge badge-secondary">${item.handType} </span>
 							</p>
-							<p>${item.handContent }</p>
 							<p>
-								<a href="/hand/order" class="btn btn-primary" role="button">바로구매</a>
-								<a href="/hand/select?handNum=${item.handNum}"
+								<a href="/hand/update?handNum=${item.handNum}"
+									class="btn btn-default" role="button">수정</a> <a href=""
+									onclick="delHand(${item.handNum});" class="btn btn-default"
+									role="button">삭제</a> <a
+									href="/hand/detail?handNum=${item.handNum}"
 									class="btn btn-default" role="button">상세정보</a> <br>
 							</p>
 							<p>
 								등록일 :
 								<fmt:formatDate value="${item.handDate}" pattern="yyyy-MM-dd" />
 							</p>
-
 						</div>
 					</div>
 				</div>
@@ -142,6 +145,22 @@
 			moveForm.attr("action", "/hand/myList");
 			moveForm.submit();
 		});
+		//글 삭제
+		function delHand(handNum){
+			if(confirm("삭제하시겠습니까?")){
+				$.ajax({
+					url: '/hand/delete',
+					data : {"handNum" : handNum},
+					type : 'GET',
+					success : function(result){
+						$("#item").remove;
+					},
+					error : function(result){
+						alert("파일을 삭제하지 못하였습니다.")
+					}
+		       });
+				}
+			}
 	</script>
 </body>
 </html>

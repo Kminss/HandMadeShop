@@ -40,7 +40,7 @@ table tr td input[name=mAddr] {
 <body>
 <h3>회원가입</h3>
 <p class="w-pct60 right" style="margin: 0 auto; padding-bottom: 5px; font-size: 13px;">*는 필수 입력 항목입니다.</p>
-<form>
+<form action="./join" method="post">
 	<table class="w-pct60">
 		<tr>
 			<th class="w-px160">* 성명</th>

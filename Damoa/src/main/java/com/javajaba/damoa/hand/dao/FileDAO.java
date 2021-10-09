@@ -12,18 +12,27 @@ import com.javajaba.damoa.hand.dto.AttachedImgDTO;
 
 @Repository
 public class FileDAO {
-private static final Logger logger = LoggerFactory.getLogger(FileDAO.class);
+	private static final Logger logger = LoggerFactory.getLogger(FileDAO.class);
 
-@Autowired
-SqlSessionTemplate sqlSessionTemplate;
+	@Autowired
+	SqlSessionTemplate sqlSessionTemplate;
 
 //파일첨부
-public void addFile(AttachedImgDTO attachedImgDTO) {
-	sqlSessionTemplate.insert("addFile",attachedImgDTO);
-}
-//첨부파일리스트
-public List<AttachedImgDTO> listFile(int attachedNum) {
-	return sqlSessionTemplate.selectList("listFile",attachedNum);
-}
+	public void addFile(AttachedImgDTO attachedImgDTO) {
+		sqlSessionTemplate.insert("addFile", attachedImgDTO);
+	}
 
+//첨부파일리스트
+	public List<AttachedImgDTO> listFile(int attachedNum) {
+		return sqlSessionTemplate.selectList("listFile", attachedNum);
+	}
+
+//파일 삭제
+	public void deleteFile(int handNum) {
+		sqlSessionTemplate.delete("deleteFile", handNum);
+	}
+// 파일 수정
+	public void updateFile(AttachedImgDTO attachedImgDTO) {
+		sqlSessionTemplate.update("updateFile", attachedImgDTO);
+	}
 }

@@ -4,12 +4,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -56,7 +54,7 @@ public class MemberController {
 	}
 	@RequestMapping(value = "/join", method = RequestMethod.GET)
 	public String join() {
-		return "./member/join";
+		return "/member/join";
 
 	}
 
@@ -80,9 +78,22 @@ public class MemberController {
 		request.getSession().invalidate();
 		return "redirect:/";
 	}
+	//마이페이지
 	@RequestMapping(value = "/myPage", method = RequestMethod.GET)
-	public String myPage(Model model, String mId) {
-		model.addAttribute("mId",mId);
+	public String myPage() {
 		return "/member/mypage";
 	}
+	//회원정보 수정
+	@RequestMapping(value = "/mUpdate", method = RequestMethod.GET)
+	public String update() {
+		return "/member/update";
+	}
+	
+	@RequestMapping(value = "/mUpdate", method = RequestMethod.POST)
+	public String update(MemberDTO memberDTO, HttpServletRequest request) {
+		request.getSession().invalidate();
+		memberService.update(memberDTO);
+		return "redirect:/";
+	}
+	//회원정보 삭제
 }

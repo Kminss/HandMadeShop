@@ -63,6 +63,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
 	<if test="handType != null and handType > 0 ">
 	and handType = #{handType}
 	</if>
+	<if test="mId != null">
+	and mId = #{mId}
+	</if>
 	</where>
 	</select>
 	
@@ -98,8 +101,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
 	<update id="update" parameterType="HandDTO">
 		update handmade
 		set
-		handTitle =
-		#{handTitle}, handContent=#{handContent}, handType=#{handType}
+		handTitle = #{handTitle}, handContent=#{handContent}, handType=#{handType}, handPrice = #{handPrice}
 		where
 		handNum = #{handNum} and mId = #{mId}
 	</update>
@@ -113,13 +115,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
 	
 	<!--  주문 -->
 	<insert id="orderInsert" parameterType="OrderDTO">
-	<selectKey resultType="int" keyProperty="orderId" order="BEFORE">
-			SELECT HAND_ORDER_SEQ.nextval from dual
-		</selectKey>
 		insert into
-		HAND_ORDER ( orderId, mId, orderRec, orderAddr1, orderAddr2, orderAddr3, orderPh, handNUm )
+		HAND_ORDER ( orderId, mId, orderRec, orderPost, orderAddr, orderPh, orderPayment, handNUm )
 		values 
-		( #{orderId}, #{mId}, #{orderRec}, #{orderAddr1}, #{orderAddr2}, #{orderAddr3}, #{orderPh}, #{handNum} )
+		( #{orderId}, #{mId}, #{orderRec}, #{orderPost}, #{orderAddr}, #{orderPh}, #{orderPayment}, #{handNum} )
 	</insert>
 	<!-- 주문내역-->
 	<select id="myOrder" parameterType="String" resultType="OrderDTO">
@@ -127,7 +126,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
 	where mId = #{mId}
 	</select>
 	<!-- 주문상세 보기 -->
-	<select id="orderDetail" parameterType="int" resultType="OrderDTO">
+	<select id="orderDetail" parameterType="String" resultType="OrderDTO">
 		select *
 		from
 		HAND_ORDER
@@ -135,7 +134,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
 		orderId = #{orderID}
 	</select>
 	<!--  주문 취소 -->
-	<delete id="orderDelete" parameterType="int">
+	<delete id="orderDelete" parameterType="String">
 	delete from HAND_ORDER
 	where 
 	orderId = #{orderId}

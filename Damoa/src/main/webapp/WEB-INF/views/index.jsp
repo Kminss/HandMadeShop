@@ -10,7 +10,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- 위 3개의 메타 태그는 *반드시* head 태그의 처음에 와야합니다; 어떤 다른 콘텐츠들은 반드시 이 태그들 *다음에* 와야 합니다 -->
-<title>부트스트랩 101 템플릿</title>
+<title>다모아 메인</title>
 
 <!-- 부트스트랩 -->
 <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -102,5 +102,21 @@
 	
 	<!-- 모든 컴파일된 플러그인을 포함합니다 (아래), 원하지 않는다면 필요한 각각의 파일을 포함하세요 -->
 	<script src="/bootstrap/js/bootstrap.min.js"></script>
+	<script>
+	$(document).ready(
+			function() {
+				//handType  한글로 수정 출력
+					let handTypeBadge = document.getElementsByClassName("badge badge-secondary")
+						for (var i = 0; i < handTypeBadge.length; i++) {
+							var badge = handTypeBadge[i];
+							if(badge.innerText == '1'){ badge.innerHTML = "인테리어"}
+							if(badge.innerText == '2'){ badge.innerHTML = "악세서리"}
+							if(badge.innerText == '3'){ badge.innerHTML = "가구"}
+							if(badge.innerText == '4'){ badge.innerHTML = "주방/생활"}
+							if(badge.innerText == '5'){ badge.innerHTML = "디저트"}
+							if(badge.innerText == '6'){ badge.innerHTML = "기타"}
+						}
+			});
+	</script>
 </body>
 </html>

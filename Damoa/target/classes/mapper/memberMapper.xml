@@ -8,10 +8,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
 			select member_seq.nextval from dual
 		</selectKey>
 		insert into
-		member
+		member ( mId, mName, mNo, mPw, mPh, mEmail, mPost, mAddr, mBirth, mAdmin)
 		values
-		(#{mId},#{mName},#{mNo},#{mPw},#{mPh},#{mEmail},#{mAddr},#{mBirth},sysdate,0)
+		(#{mId},#{mName},#{mNo},#{mPw},#{mPh},#{mEmail},#{mPost},#{mAddr},#{mBirth},0)
 	</insert>
+	
 	<select id="checkId" parameterType="String" resultType="boolean">
 		select count(*)
 		from member 
@@ -21,4 +22,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
 	<select id="login" parameterType="Map" resultType="MemberDTO">
 	select * from member where mId=#{mId} and mPw=#{mPw}
 	</select>
+	
+	<select id="detail" parameterType="String" resultType="MemberDTO">
+	select * from member where mId=#{mId}
+	</select>
+	
+	<update id="memberUpdate" parameterType="MemberDTO">
+	update member
+	set
+	 mPw = #{mPw}, mPh = #{mPh}, mEmail = #{mEmail}, mPost = #{mPost}, mAddr = #{mAddr}, mBirth = #{mBirth}, mAdmin =#{mAdmin}
+	
+	where 
+	mNo = #{mNo}
+	</update>
+	
+	<delete id="memberDelete" parameterType="String">
+	delete from member where mId=#{mId}
+	</delete>
 </mapper>

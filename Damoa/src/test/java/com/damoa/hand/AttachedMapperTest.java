@@ -35,7 +35,7 @@ public class AttachedMapperTest {
 //		order.setOrderAddr3("3");
 //		order.setOrderPh("010");
 //		handDAO.orderInsert(order);
-		order = handDAO.orderDetail(8);
+		//order = handDAO.orderDetail(8);
 		//System.out.println(order);
 		List<OrderDTO> list = new ArrayList<OrderDTO>();
 		list = handDAO.myOrder("test");

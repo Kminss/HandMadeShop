@@ -1,5 +1,8 @@
 package com.javajaba.damoa.member.dto;
 
+import java.util.Date;
+
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -10,10 +13,13 @@ public class MemberDTO {
 	private String mPw; //비번
 	private String mPh; //전화번호
 	private String mEmail; //이메일
-	private String mAddr; //주소
+	private String mAddr;//주소
 	private String mPost; //우편번호
-	private String mBirth; //생년월일
-	private String mreg; //등록일
+	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date mBirth; //생년월일
+	
+	private String mReg; //등록일
 	private int mAdmin;  //관리자확인 1=관리자 0=회원
 	public int getmNo() {
 		return mNo;
@@ -63,17 +69,18 @@ public class MemberDTO {
 	public void setmPost(String mPost) {
 		this.mPost = mPost;
 	}
-	public String getmBirth() {
+	public Date getmBirth() {
 		return mBirth;
 	}
-	public void setmBirth(String mBirth) {
+	public void setmBirth(Date mBirth) {
 		this.mBirth = mBirth;
 	}
-	public String getMreg() {
-		return mreg;
+	
+	public String getmReg() {
+		return mReg;
 	}
-	public void setMreg(String mreg) {
-		this.mreg = mreg;
+	public void setmReg(String mReg) {
+		this.mReg = mReg;
 	}
 	public int getmAdmin() {
 		return mAdmin;
@@ -81,11 +88,10 @@ public class MemberDTO {
 	public void setmAdmin(int mAdmin) {
 		this.mAdmin = mAdmin;
 	}
-	
 	@Override
 	public String toString() {
 		return "MemberDTO [mNo=" + mNo + ", mId=" + mId + ", mName=" + mName + ", mPw=" + mPw + ", mPh=" + mPh
-				+ ", mEmail=" + mEmail + ", mAddr=" + mAddr + ", mPost=" + mPost + ", mBirth=" + mBirth + ", mreg="
-				+ mreg + ", mAdmin=" + mAdmin + "]";
+				+ ", mEmail=" + mEmail + ", mAddr=" + mAddr + ", mPost=" + mPost + ", mBirth=" + mBirth + ", mReg="
+				+ mReg + ", mAdmin=" + mAdmin + "]";
 	}
 }

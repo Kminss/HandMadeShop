@@ -55,11 +55,11 @@ public class HandDAO {
 		return sqlSessionTemplate.selectList("myOrder", mId);
 	}
 
-	public OrderDTO orderDetail(int orderId) {
+	public OrderDTO orderDetail(String orderId) {
 		return sqlSessionTemplate.selectOne("orderDetail", orderId);
 	}
 
-	public void orderDelete(int orderId) {
+	public void orderDelete(String orderId) {
 		sqlSessionTemplate.delete("orderDelete", orderId);
 	}
 }

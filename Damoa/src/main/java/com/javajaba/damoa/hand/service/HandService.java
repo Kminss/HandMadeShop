@@ -28,11 +28,10 @@ public class HandService {
 	@Transactional
 	public void write(HandDTO handDTO) {
 		
-			handDTO.setHandImgCnt(handDTO.getHandImgList().size());
 			handDAO.write(handDTO);
 		
 			//이미지 첨부파일 확인
-			if (handDTO.getHandImgList().size() == 0) {
+			if (handDTO.getHandImgList() == null) {
 				return;
 			}
 			//첨부이미지 db저장

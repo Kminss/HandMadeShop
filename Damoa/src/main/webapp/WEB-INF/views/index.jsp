@@ -82,7 +82,7 @@
 						<div class="caption">
 							<h3>${item.handTitle}</h3>
 							<p>
-								<span class="badge badge-secondary">${item.handType} </span>
+								<span class="badge badge-secondary">${item.typeName} </span>
 							</p>
 							<p>
 								<a href="/hand/order?handNum=${item.handNum }" class="btn btn-primary" role="button">바로구매</a> <a
@@ -103,7 +103,7 @@
 	<!-- 모든 컴파일된 플러그인을 포함합니다 (아래), 원하지 않는다면 필요한 각각의 파일을 포함하세요 -->
 	<script src="/bootstrap/js/bootstrap.min.js"></script>
 	<script>
-	$(document).ready(
+/* 	$(document).ready(
 			function() {
 				//handType  한글로 수정 출력
 					let handTypeBadge = document.getElementsByClassName("badge badge-secondary")
@@ -116,7 +116,7 @@
 							if(badge.innerText == '5'){ badge.innerHTML = "디저트"}
 							if(badge.innerText == '6'){ badge.innerHTML = "기타"}
 						}
-			});
+			}); */
 	</script>
 </body>
 </html>

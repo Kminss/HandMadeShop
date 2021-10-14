@@ -14,7 +14,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
 	<!-- 최신상품목록 -->
 	<select id="newList" resultType="HandDTO">
 		  <![CDATA[
-		select * from handmade
+		select handTitle, handContent, handType,handNum,
+                (select typeName from hand_category where handmade.handType = hand_category.handType) typeName, handPrice, handDate
+        from handmade
 		where rownum <= 8 
 		order by handNum desc
 	  ]]>
@@ -26,9 +28,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
 			SELECT HAND_SEQ.nextval from dual
 		</selectKey>
 		insert into
-		HANDMADE ( mId, handNum, handTitle, handContent, handType )
+		HANDMADE ( mId, handNum, handTitle, handContent, handType, handPrice )
 		values 
-		( #{mId}, #{handNum}, #{handTitle}, #{handContent},#{handType} )
+		( #{mId}, #{handNum}, #{handTitle}, #{handContent},#{handType}, #{handPrice} )
 	</insert>
 	
 	<!-- 게시물 목록(페이징) -->
@@ -37,10 +39,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
     
     <![CDATA[
         
-        select handNum, mId, handTitle, handContent, handType, handPrice,handDate, handUpdate from(
-        
-                select /*+INDEX_DESC(handmade pk_handmade) */ rownum  as rn, handNum, mId, handTitle, handContent, handType, handPrice, handDate, handUpdate
-                  
+        select handNum, mId, handTitle, handContent, handType, handPrice,handDate, handUpdate, typeName
+        from(
+                select /*+INDEX_DESC(handmade pk_handmade) */ 
+                rownum  as rn, handNum, mId, handTitle, handContent, handType,  handPrice, handDate, handUpdate,
+                (select typeName from hand_category where handmade.handType = hand_category.handType) typeName
                 from handmade
                 where 
                 rownum <= #{cri.pageNum} * #{cri.amount}
@@ -71,7 +74,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
 	
 	<!-- 상품상세조회 -->
 	<select id="detail" parameterType="integer" resultType="HandDTO">
-		select *
+		select handTitle, handContent, handType,
+                (select typeName from hand_category where handmade.handType = hand_category.handType) typeName, handPrice, handDate
 		from
 		handmade
 		where
@@ -82,10 +86,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
 	<select id="myList" parameterType="hashMap" resultType="HandDTO">
 	  <![CDATA[
         
-        select handNum, mId, handTitle, handContent, handType, handPrice,handDate, handUpdate from(
-        
-                select /*+INDEX_DESC(handmade pk_handmade) */ rownum  as rn, handNum, mId, handTitle, handContent, handType, handPrice, handDate, handUpdate
-                  
+        select handNum, mId, handTitle, handContent, handType, handPrice, handDate, handUpdate, typeName
+        from(
+                select /*+INDEX_DESC(handmade pk_handmade) */ 
+                rownum  as rn, handNum, mId, handTitle, handContent, handType, handPrice, handDate, handUpdate,
+                (select typeName from hand_category where handmade.handType = hand_category.handType) typeName  
                 from handmade
                 where 
                 rownum <= #{cri.pageNum} * #{cri.amount} and mId = #{mId}

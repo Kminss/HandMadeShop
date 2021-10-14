@@ -76,14 +76,12 @@
 					<div class="card">
 						<h3>${handDTO.handTitle}</h3>
 						<p>
-							<span class="badge badge-secondary">${handDTO.handType} </span>
+							<span class="badge badge-secondary">${handDTO.typeName} </span>
 						</p>
 						<h4>${handDTO.handPrice}원</h4>
-						<p>${handDTO.handContent }</p>
-						
 						<p>
-							<a href="#" class="btn btn-primary" role="button">구매</a> <a
-								href="/hand/select?handNum=${item.handNum}"
+							<a href="/hand/order?handNum=${handDTO.handNum}" class="btn btn-primary" role="button">구매</a> <a
+								href="#"
 								class="btn btn-default" role="button">장바구니(미구현)</a> <br>
 						</p>
 						<p>
@@ -97,8 +95,8 @@
 		</div>
 		<c:if test="${!empty handDTO.handContent}">
 		<div class="row-md-3">
-		<h2 class="text-center">상세 정보</h2>
-		<h5 class="text-center">${handDTO.handContent}</h5>
+		<h2 class="text-center">상세 내용</h2>
+		<p class="text-center" style="white-space: pre-line;">${handDTO.handContent}</p>
 		</div>
 		</c:if>
 	</div>
@@ -114,7 +112,7 @@
 		crossorigin="anonymous"></script>
 <script>
 $(document).ready(
-		function() {
+		/* function() {
 			//handType  한글로 수정 출력
 				let handTypeBadge = document.getElementsByClassName("badge badge-secondary")
 						var badge = handTypeBadge[0];
@@ -124,7 +122,7 @@ $(document).ready(
 						if(badge.innerText == '4'){ badge.innerHTML = "주방/생활"}
 						if(badge.innerText == '5'){ badge.innerHTML = "디저트"}
 						if(badge.innerText == '6'){ badge.innerHTML = "기타"}
-		});
+		}); */
 </script>
 </body>
 </html>

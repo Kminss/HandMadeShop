@@ -74,9 +74,8 @@
 						<div class="caption">
 							<h3>${item.handTitle}</h3>
 							<p>
-								<span class="badge badge-secondary">${item.handType} </span>
+								<span class="badge badge-secondary">${item.typeName} </span>
 							</p>
-							<p>${item.handContent }</p>
 							<p>
 								<a href="/hand/order?handNum=${item.handNum }" class="btn btn-primary" role="button">바로구매</a>
 								<a href="/hand/select?handNum=${item.handNum}" class="btn btn-default"
@@ -106,8 +105,6 @@
 				function() {
 					//handType  한글로 수정 출력
 					let handTypeTitle = document.getElementById("category")
-					let handTypeBadge = document
-							.getElementsByClassName("badge badge-secondary")
 							
 					let choice = ${param.handType == null? 0 : param.handType};
 					switch (choice) {
@@ -116,47 +113,23 @@
 						break;
 					case 1:
 						handTypeTitle.innerHTML = "인테리어"
-						for (var i = 0; i < handTypeBadge.length; i++) {
-							var badge = handTypeBadge[i];
-							badge.innerHTML = "인테리어"
-						}
 						break;
 					case 2:
 						handTypeTitle.innerHTML = "악세서리"
-						for (var i = 0; i < handTypeBadge.length; i++) {
-							var badge = handTypeBadge[i];
-							badge.innerHTML = "악세서리"
-						}
 						break;
 					case 3:
 						handTypeTitle.innerHTML = "가구"
-						for (var i = 0; i < handTypeBadge.length; i++) {
-							var badge = handTypeBadge[i];
-							badge.innerHTML = "가구"
-						}
 						break;
 					case 4:
 						handTypeTitle.innerHTML = "주방 / 생활"
-						for (var i = 0; i < handTypeBadge.length; i++) {
-							var badge = handTypeBadge[i];
-							badge.innerHTML = "주방/생활"
-						}
 						break;
 					case 5:
 						handTypeTitle.innerHTML = "디저트"
-						for (var i = 0; i < handTypeBadge.length; i++) {
-							var badge = handTypeBadge[i];
-							badge.innerHTML = "디저트"
-						}
 						break;
 					case "":
 						break;
 					default:
 						handTypeTitle.innerHTML = "기타"
-						for (var i = 0; i < handTypeBadge.length; i++) {
-							var badge = handTypeBadge[i];
-							badge.innerHTML = "기타"
-						}
 						break;
 					}
 				

@@ -27,7 +27,7 @@ public class MemberDAO {
 	}
 	//회원 정보
 	public MemberDTO detail(String mId) {
-		return sqlSessionTemplate.selectOne("detail", mId);
+		return sqlSessionTemplate.selectOne("memberDetail", mId);
 	}
 	//회원 수정
 	public void update(MemberDTO memberDTO) {

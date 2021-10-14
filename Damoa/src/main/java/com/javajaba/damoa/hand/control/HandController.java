@@ -45,7 +45,7 @@ public class HandController {
 
 		List<HandDTO> list = handService.getListPaging(map);
 		model.addAttribute("list", list);
-
+		logger.info("리스트..." + list);
 		int total = handService.getListTotal(map);
 		;
 		PageMakerDTO pageMakerDTO = new PageMakerDTO(cri, total);
@@ -61,7 +61,6 @@ public class HandController {
 
 	@RequestMapping(value = "/write", method = RequestMethod.POST)
 	public String write(HandDTO handDTO) {
-		logger.info("리스트 : " + handDTO.getHandImgList());
 		handService.write(handDTO);
 		return "redirect:/hand/myList";
 	}
@@ -69,6 +68,7 @@ public class HandController {
 	@RequestMapping(value = "/detail")
 	public String select(Model model, @RequestParam int handNum) {
 		HandDTO handDTO = handService.detail(handNum);
+		logger.info("detail....." + handDTO);
 		model.addAttribute("handDTO", handDTO);
 		return "/hand/hand_detail";
 
@@ -87,7 +87,7 @@ public class HandController {
 		map.put("cri", cri);
 
 		List<HandDTO> myList = handService.getMyList(map);
-
+		logger.info("list......" + myList);
 		if (!myList.isEmpty()) {
 			model.addAttribute("myList", myList);
 			int total = handService.getListTotal(map);

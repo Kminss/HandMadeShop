@@ -102,10 +102,12 @@ textarea {
 				<th>* 카테고리</th>
 				<td><select name="handType">
 						<option value="">선택</option>
-						<option value="1">기타</option>
+						<option value="1">인테리어</option>
 						<option value="2">주방</option>
 						<option value="3">악세서리</option>
 						<option value="4">가전</option>
+						<option value="5">디저트</option>
+						<option value="6">기타</option>
 				</select>
 					<div class="valid">카테고리를 선택하세요.</div></td>
 			</tr>
@@ -166,6 +168,9 @@ function formCheck() {
         document.forms[0].handType.focus();
         return false;
     }
+    //텍스트 줄바꿈 치환 후 저장
+    $('#content').val().replace(/\r\n|\n/ , "<br>"); 
+    
     document.product_form.submit();
 }
 	

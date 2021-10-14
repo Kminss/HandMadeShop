@@ -11,11 +11,14 @@ public class HandDTO {
 	private String handTitle; //제목
 	private String handContent; //내용
 	private int handType;   //카테고리 1:전체, 2:인테리어, 3:악세서리, 4:주방,생활 5:디저트
+	private String typeName;
 	private int handPrice;
 	private Date handDate;
 	private Date handUpdate;
 	private int handViewCnt;
 	
+
+
 	//파일 관련
 	private List<AttachedImgDTO> handImgList;
 	private int handImgCnt;
@@ -78,7 +81,14 @@ public class HandDTO {
 	public void setHandType(int handType) {
 		this.handType = handType;
 	}
+	
+	public String getTypeName() {
+		return typeName;
+	}
 
+	public void setTypeName(String typeName) {
+		this.typeName = typeName;
+	}
 	public Date getHandDate() {
 		return handDate;
 	}
@@ -114,9 +124,9 @@ public class HandDTO {
 	@Override
 	public String toString() {
 		return "HandDTO [mId=" + mId + ", handNum=" + handNum + ", handTitle=" + handTitle + ", handContent="
-				+ handContent + ", handType=" + handType + ", handPrice=" + handPrice + ", handDate=" + handDate
-				+ ", handUpdate=" + handUpdate + ", handViewCnt=" + handViewCnt + ", handImgList=" + handImgList
-				+ ", handImgCnt=" + handImgCnt + "]";
+				+ handContent + ", handType=" + handType + ", typeName=" + typeName + ", handPrice=" + handPrice
+				+ ", handDate=" + handDate + ", handUpdate=" + handUpdate + ", handViewCnt=" + handViewCnt
+				+ ", handImgList=" + handImgList + ", handImgCnt=" + handImgCnt + "]";
 	}
-	
+
 }

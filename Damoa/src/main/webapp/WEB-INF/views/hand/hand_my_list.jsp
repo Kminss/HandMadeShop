@@ -80,7 +80,7 @@
 						<div class="caption" id="item">
 							<h3>${item.handTitle}</h3>
 							<p>
-								<span class="badge badge-secondary">${item.handType} </span>
+								<span class="badge badge-secondary">${item.typeName} </span>
 							</p>
 							<p>
 								<a href="/hand/update?handNum=${item.handNum}"
@@ -107,35 +107,6 @@
 	<script src="/bootstrap/js/bootstrap.min.js"></script>
 
 	<script type="text/javascript">
-		$(document).ready(
-				function() {
-					//handType  한글로 수정 출력
-					let handTypeTitle = document.getElementById("category")
-					let handTypeBadge = document.getElementsByClassName("badge badge-secondary")
-					for (var i = 0; i < handTypeBadge.length; i++) {
-						let choice = handTypeBadge[i].textContent
-						switch (choice) {
-						case 1:
-							handTypeBadge[i].textContent = "인테리어"
-							break;
-						case 2:
-							handTypeBadge[i].textContent = "악세서리"
-							break;
-						case 3:
-							handTypeBadge[i].textContent = "가구"
-							break;
-						case 4:
-							handTypeBadge[i].textContent = "주방/생활"
-							break;
-						case 5:
-							handTypeBadge[i].textContent = "디저트"
-							break;
-						default:
-							handTypeBadge[i].textContent = "기타"
-							break;
-						}
-					}
-				});
 		let moveForm = $('#moveForm');
 		onclick = 'preventClick(event)'
 

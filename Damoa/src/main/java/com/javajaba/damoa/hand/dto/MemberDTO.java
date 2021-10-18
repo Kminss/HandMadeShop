@@ -1,4 +1,4 @@
-package com.javajaba.damoa.member.dto;
+package com.javajaba.damoa.hand.dto;
 
 import java.util.Date;
 

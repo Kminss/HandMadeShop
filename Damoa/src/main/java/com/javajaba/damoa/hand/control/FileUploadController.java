@@ -42,7 +42,7 @@ public class FileUploadController {
 
 	// 파일 업로드
 	@RequestMapping(value = "/uploadFile", method = RequestMethod.POST)
-	public ResponseEntity<List<AttachedImgDTO>> uploadAjaxActionPOST(
+	public ResponseEntity<List<AttachedImgDTO>> uploadFile(
 			@RequestParam("uploadFile") MultipartFile[] uploadFile, HttpServletRequest req) throws Exception {
 		// 이미지 파일 체크
 		for (MultipartFile multipartFile : uploadFile) {
@@ -119,7 +119,7 @@ public class FileUploadController {
 
 	// 이미지 파일 출력
 	@RequestMapping(value = "/display")
-	public ResponseEntity<byte[]> getImage(String fileName) {
+	public ResponseEntity<byte[]> display(String fileName) {
 		File file = new File("d:\\upload\\" + fileName);
 
 		ResponseEntity<byte[]> result = null;

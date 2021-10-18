@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -111,7 +112,7 @@ textarea {
 		<table class="w-pct60">
 			<tr>
 				<th>총가격</th>
-				<td>${orderDTO.orderPrice}</td>
+				<td><fmt:formatNumber pattern="###,###,###" value="${orderDTO.orderAmount}" />원</td>
 			</tr>
 				<tr>
 				<th>결제 방식</th>

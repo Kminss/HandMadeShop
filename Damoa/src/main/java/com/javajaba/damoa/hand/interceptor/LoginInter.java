@@ -1,4 +1,4 @@
-package com.javajaba.damoa.member.interceptor;
+package com.javajaba.damoa.hand.interceptor;
 
 import javax.servlet.http.HttpServletRequest; 
 import javax.servlet.http.HttpServletResponse;

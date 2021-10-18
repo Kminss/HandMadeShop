@@ -30,8 +30,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
 	<update id="memberUpdate" parameterType="MemberDTO">
 	update member
 	set
-	 mPw = #{mPw}, mPh = #{mPh}, mEmail = #{mEmail}, mPost = #{mPost}, mAddr = #{mAddr}, mBirth = #{mBirth}, mAdmin =#{mAdmin}
-	
+	 mPw = #{mPw}, mPh = #{mPh}, mEmail = #{mEmail}, mPost = #{mPost}, 
+	 mAddr = #{mAddr}, mBirth = #{mBirth}, mAdmin =#{mAdmin}
 	where 
 	mNo = #{mNo}
 	</update>

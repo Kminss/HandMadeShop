@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -109,7 +110,7 @@ textarea {
 			</tr>
 			<tr>
 				<th>가격</th>
-				<td>${handDTO.handPrice}</td>
+				<td><fmt:formatNumber pattern="###,###,###" value="${handDTO.handPrice}" />원</td>
 
 			</tr>
 		</table>
@@ -117,7 +118,7 @@ textarea {
 		<table class="w-pct60">
 			<tr>
 				<th>총가격</th>
-				<td>${handDTO.handPrice}</td>
+				<td><fmt:formatNumber pattern="###,###,###" value="${handDTO.handPrice}" />원</td>
 			</tr>
 			<tr>
 				<th>결제 방법</th>
@@ -132,7 +133,7 @@ textarea {
 		<input type="hidden" value="${member.mPost}" name="orderPost">
 		<input type="hidden" value="${member.mAddr}" name="orderAddr">
 		<input type="hidden" value="${member.mPh}" name="orderPh">
-		<input type="hidden" value="${handDTO.handPrice}" name="orderPrice">
+		<input type="hidden" value="${handDTO.handPrice}" name="orderAmount">
 		<input type="hidden" value="${param.handNum}" name="handNum">
 	</form>
 	<div class="btnSet">

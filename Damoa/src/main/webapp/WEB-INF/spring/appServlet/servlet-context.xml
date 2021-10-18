@@ -38,13 +38,14 @@
 			<mapping path="/hand/**" />
 			<exclude-mapping path="/member/join"/>
 			<exclude-mapping path="/member/login"/>
+			<exclude-mapping path="/member/checkId"/>
 			<exclude-mapping path="/hand/" />
 			<exclude-mapping path="/hand/list" />
 			<exclude-mapping path="/hand/detail" />
 
 			<!--적용될 인터셉트를 지정한다. -->
 			<beans:bean
-				class="com.javajaba.damoa.member.interceptor.LoginInter" />
+				class="com.javajaba.damoa.hand.interceptor.LoginInter" />
 		</interceptor>
 	</interceptors>
 

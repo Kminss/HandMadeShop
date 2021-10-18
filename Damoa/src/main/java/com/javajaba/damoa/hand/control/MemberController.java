@@ -1,4 +1,4 @@
-package com.javajaba.damoa.member.control;
+package com.javajaba.damoa.hand.control;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.javajaba.damoa.member.dto.MemberDTO;
-import com.javajaba.damoa.member.service.MemberService;
+import com.javajaba.damoa.hand.dto.MemberDTO;
+import com.javajaba.damoa.hand.service.MemberService;
 
 @Controller
 @RequestMapping("/member")
@@ -48,7 +48,6 @@ public class MemberController {
 		
 		
 		//로그인 후 요청페이지 이동
-		logger.info("url...." + referer);
 		if (referer == null) {return "redirect:/";}		
 		return "redirect: " + referer;
 	}
@@ -65,7 +64,7 @@ public class MemberController {
 		return "redirect:/";
 	}
 
-	// 아이디중복확인 validate 플러그인을 통해 ajax로 받음
+	// 아이디중복확인 view 에서 ajax로 받음
 	@ResponseBody
 	@RequestMapping(value = "/checkId")
 	public boolean checkId(String mId) {
@@ -85,15 +84,28 @@ public class MemberController {
 	}
 	//회원정보 수정
 	@RequestMapping(value = "/mUpdate", method = RequestMethod.GET)
-	public String update() {
+	public String mUpdate() {
 		return "/member/update";
 	}
 	
 	@RequestMapping(value = "/mUpdate", method = RequestMethod.POST)
-	public String update(MemberDTO memberDTO, HttpServletRequest request) {
-		request.getSession().invalidate();
+	public String mUpdate(MemberDTO memberDTO, HttpServletRequest request) {
 		memberService.update(memberDTO);
+		request.getSession().invalidate();
 		return "redirect:/";
 	}
 	//회원정보 삭제
+		@RequestMapping(value = "/mDelete", method = RequestMethod.GET)
+		public String mDelete() {
+			return "/member/delete";
+		}
+		
+		@RequestMapping(value = "/mDelete", method = RequestMethod.POST)
+		public String mDelete(HttpServletRequest request) {
+			MemberDTO member = (MemberDTO) request.getSession().getAttribute("memberDTO");
+			String mId = member.getmId();
+			memberService.delete(mId);
+			request.getSession().invalidate();
+			return "redirect:/";
+		}
 }

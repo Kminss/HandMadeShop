@@ -29,14 +29,14 @@ public class HandService {
 	public void write(HandDTO handDTO) {
 		
 			handDAO.write(handDTO);
-		
 			//이미지 첨부파일 확인
 			if (handDTO.getHandImgList() == null) {
 				return;
 			}
 			//첨부이미지 db저장
-			for (AttachedImgDTO imgDTO : handDTO.getHandImgList()) {
-				fileDAO.addFile(imgDTO);
+			for (AttachedImgDTO attachedImgDTO : handDTO.getHandImgList()) {
+				attachedImgDTO.setHandNum(handDTO.getHandNum());
+				fileDAO.addFile(attachedImgDTO);
 			}
 	}
 	
@@ -65,7 +65,8 @@ public class HandService {
 	public HandDTO detail(int handNum) {
 		HandDTO handDTO = handDAO.detail(handNum);
 		
-		handDTO.setHandImgList(fileDAO.listFile(handNum));
+		List<AttachedImgDTO> list =fileDAO.listFile(handNum);
+		if(list != null){ handDTO.setHandImgList(list); }
 		return handDTO;
 	}
 	
@@ -83,23 +84,20 @@ public class HandService {
 		
 		handDAO.update(handDTO);
 		//이미지 첨부파일 수정
-		int handNum = handDTO.getHandNum();
-		logger.info("handNum...." + handNum);
-		fileDAO.deleteFile(handDTO.getHandNum()); //기존 첨부파일 데이터 삭제
 		logger.info("리스트.." + handDTO.getHandImgList());
 		if (handDTO.getHandImgList() == null || handDTO.getHandImgList().size() == 0) {
 			return;
 		}
-		for (AttachedImgDTO imgDTO : handDTO.getHandImgList()) {
-			if(imgDTO.getFileName()== null ) {continue;}
-			imgDTO.setHandNum(handNum);
-			fileDAO.updateFile(imgDTO);
+		for (AttachedImgDTO attachedImgDTO : handDTO.getHandImgList()) {
+			if(attachedImgDTO.getFileName()== null ) {continue;}
+			attachedImgDTO.setHandNum(handDTO.getHandNum());
+			fileDAO.updateFile(attachedImgDTO);
 		}
 	}
 	
 	//상품 삭제
-	public int delete(Map<String, Object> map) {
-		return handDAO.delete(map);
+	public int delete(int handNum) {
+		return handDAO.delete(handNum);
 	}
 	
 	@Transactional

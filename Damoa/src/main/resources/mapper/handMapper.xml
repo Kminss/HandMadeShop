@@ -14,8 +14,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
 	<!-- 최신상품목록 -->
 	<select id="newList" resultType="HandDTO">
 		  <![CDATA[
-		select handTitle, handContent, handType,handNum,
-                (select typeName from hand_category where handmade.handType = hand_category.handType) typeName, handPrice, handDate
+		select handTitle, handContent, handType,handNum,handPrice, handDate,
+                (select typeName from hand_category where handmade.handType = hand_category.handType) typeName
         from handmade
 		where rownum <= 8 
 		order by handNum desc
@@ -74,7 +74,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
 	
 	<!-- 상품상세조회 -->
 	<select id="detail" parameterType="integer" resultType="HandDTO">
-		select handTitle, handContent, handType,
+		select mId,handNum, handTitle, handContent, handType,
                 (select typeName from hand_category where handmade.handType = hand_category.handType) typeName, handPrice, handDate
 		from
 		handmade
@@ -112,18 +112,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
 	</update>
 
 	<!-- 상품삭제 -->
-	<delete id="delete" parameterType="Map">
+	<delete id="delete" parameterType="int">
 		delete from handmade
 		where
-		mId=#{mId} and handNum = #{handNum}
+		handNum = #{handNum}
 	</delete>
 	
 	<!--  주문 -->
 	<insert id="orderInsert" parameterType="OrderDTO">
 		insert into
-		HAND_ORDER ( orderId, mId, orderRec, orderPost, orderAddr, orderPh, orderPayment, handNUm )
+		HAND_ORDER ( orderId, mId, orderRec, orderPost, orderAddr, orderPh, orderPayment, handNUm, orderAmount )
 		values 
-		( #{orderId}, #{mId}, #{orderRec}, #{orderPost}, #{orderAddr}, #{orderPh}, #{orderPayment}, #{handNum} )
+		( #{orderId}, #{mId}, #{orderRec}, #{orderPost}, #{orderAddr}, #{orderPh}, #{orderPayment}, #{handNum}, #{orderAmount} )
 	</insert>
 	<!-- 주문내역-->
 	<select id="myOrder" parameterType="String" resultType="OrderDTO">

@@ -1,4 +1,6 @@
 package com.javajaba.damoa.hand.control;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
+
 import java.text.DecimalFormat;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -17,10 +19,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.javajaba.damoa.hand.commons.dto.PageMakerDTO;
 import com.javajaba.damoa.hand.commons.utill.Criteria;
 import com.javajaba.damoa.hand.dto.HandDTO;
+import com.javajaba.damoa.hand.dto.MemberDTO;
 import com.javajaba.damoa.hand.dto.OrderDTO;
 import com.javajaba.damoa.hand.service.FileService;
 import com.javajaba.damoa.hand.service.HandService;
-import com.javajaba.damoa.member.dto.MemberDTO;
 
 @Controller
 @RequestMapping("/hand")
@@ -36,7 +38,6 @@ public class HandController {
 	public String list(Model model, Criteria cri, @RequestParam(value = "handType", defaultValue = "0") int handType) {
 
 		Map<String, Object> map = new HashMap<String, Object>();
-		logger.info("cri....." + cri == null ? "yes" : "no");
 		if (cri == null) {
 			cri = new Criteria();
 		}
@@ -49,6 +50,7 @@ public class HandController {
 		int total = handService.getListTotal(map);
 		;
 		PageMakerDTO pageMakerDTO = new PageMakerDTO(cri, total);
+		logger.info("amount...." + pageMakerDTO.getCri().getAmount());
 		model.addAttribute("pageMaker", pageMakerDTO);
 
 		return "/hand/hand_list";
@@ -91,7 +93,6 @@ public class HandController {
 		if (!myList.isEmpty()) {
 			model.addAttribute("myList", myList);
 			int total = handService.getListTotal(map);
-			logger.info("total....." + total);
 			PageMakerDTO pageMakerDTO = new PageMakerDTO(cri, total);
 			model.addAttribute("pageMaker", pageMakerDTO);
 		}
@@ -102,6 +103,7 @@ public class HandController {
 	@RequestMapping("/update")
 	public String update(Model model,int handNum) {
 		HandDTO handDTO = handService.detail(handNum);
+		logger.info("hdt..." + handDTO);
 		model.addAttribute("handDTO", handDTO);
 		return "/hand/hand_update";
 	}
@@ -109,24 +111,16 @@ public class HandController {
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	public String update(HandDTO handDTO) {
 		logger.info("update" + handDTO);
+		
 		handService.update(handDTO);
 		return "redirect:/hand/myList";
 	}
 
 	@RequestMapping(value = "/delete")
 	@ResponseBody
-	public String delete(int handNum, HttpServletRequest request) {
+	public String delete(int handNum ) {
 
-		MemberDTO member = (MemberDTO) request.getSession().getAttribute("member");
-		String mId = member.getmId();
-
-		logger.info("handNum :" + handNum);
-		logger.info(mId);
-		if (mId != null) {
-			Map<String, Object> map = new HashMap<String, Object>();
-			map.put("mId", mId);
-			map.put("handNum", handNum);
-			int delete = handService.delete(map);
+			int delete = handService.delete(handNum);
 			String result = "";
 			if (delete > 0) {
 				result = "success";
@@ -134,9 +128,6 @@ public class HandController {
 				result = "fail";
 			}
 			return result;
-		} else {
-			return "/member/login";
-		}
 	}
 
 	// 주문 입력
@@ -176,7 +167,9 @@ public class HandController {
 
 	// 주문 내역
 	@RequestMapping(value = "/myOrder")
-	public String myOrder(Model model, @RequestParam String mId) {
+	public String myOrder(Model model, HttpServletRequest request) {
+		MemberDTO member = (MemberDTO) request.getSession().getAttribute("member");
+		String mId = member.getmId();
 		List<OrderDTO> list = handService.myOrder(mId);
 		model.addAttribute("orderList", list);
 		return "/hand/hand_my_order";
@@ -194,7 +187,7 @@ public class HandController {
 	@RequestMapping(value = "/orderDelete")
 	public String orderDelete(Model model, @RequestParam String orderId) {
 		handService.orderDelete(orderId);
-		return "/hand/hand_my_order";
+		return "redirect:/hand/myOrder";
 	}
 	
 }

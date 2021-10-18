@@ -19,11 +19,9 @@ public class HomeController {
 	private static Logger logger = LoggerFactory.getLogger(HomeController.class);
 	@Autowired
 	HandService handService;
-	@Autowired
-	FileService fileService;
 	
 	@RequestMapping(value = "/")
-	public String main(Model model) { // 최신 12개
+	public String main(Model model) { // 최신 8개
 		List<HandDTO> list = handService.newList();
 		model.addAttribute("list", list);
 		return "index";

@@ -35,11 +35,11 @@
 				<h3>회원 관리</h3>
 				<ul>
 					<li><a href="/member/mUpdate">회원정보 수정</a></li>
-					<li><a href="/member/joinOut">회원 탈퇴</a></li>
+					<li><a href="/member/mDelete">회원 탈퇴</a></li>
 				</ul>
 				<h3>주문 관리</h3>
 				<ul>
-					<li><a href="/hand/myOrder?mId=${member.mId }">주문목록</a></li>
+					<li><a href="/hand/myOrder">주문목록</a></li>
 				</ul>
 		</div>
 	</div>

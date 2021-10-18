@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.javajaba.damoa.member.dto.MemberDTO;
+import com.javajaba.damoa.hand.dto.MemberDTO;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)

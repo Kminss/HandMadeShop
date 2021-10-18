@@ -4,10 +4,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
 <mapper namespace="com.javajaba.damoa.hand">
 
 	<insert id="addFile" parameterType="AttachedImgDTO">
-		<selectKey resultType="int" keyProperty="handNum" 
-			order="BEFORE">
-			SELECT hand_seq.currval from dual
-		</selectKey>
 		insert into 
 		attached_img (handNum, fileName, uuid, uploadPath) 
 		values (#{handNum}, #{fileName}, #{uuid}, #{uploadPath})
@@ -23,9 +19,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-ma
 	where
 	handNum = #{handNum}
 	</delete>
-	<insert id ="updateFile" parameterType="AttachedImgDTO">
-	insert into 
-		attached_img (handNum, fileName, uuid, uploadPath) 
-		values (#{handNum}, #{fileName}, #{uuid}, #{uploadPath})
-	</insert>
+	<update id ="updateFile" parameterType="AttachedImgDTO">
+	update  attached_img
+	set
+	fileName = #{fileName}, uuid = #{uuid}, uploadPath = #{uploadPath}
+	where handNum = #{handNum}
+	</update>
 </mapper>

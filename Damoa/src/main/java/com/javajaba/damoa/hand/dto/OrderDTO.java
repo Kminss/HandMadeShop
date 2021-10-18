@@ -14,7 +14,7 @@ public class OrderDTO {
 	private String orderPh; // 전화번호
 	private String orderPayment; //결제방식
 	private Date orderDate; // 주문날짜
-	private int orderPrice;
+	private int orderAmount;
 	private int handNum; // 상품번호
 
 	public String getOrderId() {
@@ -91,19 +91,12 @@ public class OrderDTO {
 		this.orderPayment = orderPayment;
 	}
 
-	public int getOrderPrice() {
-		return orderPrice;
+	public int getOrderAmount() {
+		return orderAmount;
 	}
 
-	public void setOrderPrice(int orderPrice) {
-		this.orderPrice = orderPrice;
-	}
-
-	@Override
-	public String toString() {
-		return "OrderDTO [orderId=" + orderId + ", mId=" + mId + ", orderRec=" + orderRec + ", orderPost=" + orderPost
-				+ ", orderAddr=" + orderAddr + ", orderPh=" + orderPh + ", orderPayment=" + orderPayment
-				+ ", orderDate=" + orderDate + ", handNum=" + handNum + "]";
+	public void setOrderAmount(int orderAmount) {
+		this.orderAmount = orderAmount;
 	}
 
 }

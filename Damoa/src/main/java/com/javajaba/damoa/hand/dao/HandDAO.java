@@ -43,8 +43,8 @@ public class HandDAO {
 		sqlSessionTemplate.update("update", handDTO);
 	}
 
-	public int delete(Map<String, Object> map) {
-		return sqlSessionTemplate.delete("delete", map);
+	public int delete(int handNum) {
+		return sqlSessionTemplate.delete("delete", handNum);
 	}
 
 	public void orderInsert(OrderDTO order) {

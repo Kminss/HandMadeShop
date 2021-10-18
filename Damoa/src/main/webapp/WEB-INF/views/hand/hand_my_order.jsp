@@ -72,9 +72,7 @@
 								<span>주소</span>${orderList.orderAddr}</p>
 							<p>
 								<span>가격</span>
-								<fmt:formatNumber pattern="###,###,###"
-									value="${orderList.orderPrice}" />
-								원
+								<fmt:formatNumber pattern="###,###,###" value="${orderList.orderAmount}" />원
 							</p>
 						</div>
 					</li>

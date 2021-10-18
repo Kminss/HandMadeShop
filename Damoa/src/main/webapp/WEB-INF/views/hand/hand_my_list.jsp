@@ -38,28 +38,20 @@
 			<nav class="text-right">
 				<ul class="pagination" id="pagination">
 					<c:if test="${pageMaker.prev }">
-						<li><a href="${pageMaker.startPage -1 }"
+						<li><a href="myList?pageNum=${pageMaker.startPage-1}&amount=${pageMaker.cri.amount}&keyword=${pageMaker.cri.keyword}&handType=${param.handType}"
 							aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
 					</c:if>
 					<c:forEach var="num" begin="${pageMaker.startPage}"
 						end="${pageMaker.endPage }">
-						<li class=${pageMaker.cri.pageNum == num ? "active":"" }><a
-							href="${num}" id="page">${num } <span class="sr-only">(current)</span></a></li>
+						<li id="page" class=${pageMaker.cri.pageNum == num ? "active":"" }><a
+							href="myList?pageNum=${num}&amount=${pageMaker.cri.amount}&keyword=${pageMaker.cri.keyword}&handType=${param.handType}">${num } <span class="sr-only">(current)</span></a></li>
 					</c:forEach>
 					<c:if test="${pageMaker.next}">
-						<li><a href="${pageMaker.endPage + 1 }" aria-label="Next">
+						<li><a href="myList?pageNum=${pageMaker.endPage+1}&amount=${pageMaker.cri.amount}&keyword=${pageMaker.cri.keyword}&handType=${param.handType}" aria-label="Next">
 								<span aria-hidden="true">&raquo;</span>
 						</a></li>
 					</c:if>
-					<li><form id="moveForm" method="get">
-							<input type="hidden" name="handType"
-								value="${param.handType == null? 0 : param.handType}"> <input
-								type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }">
-							<input type="hidden" name="amount"
-								value="${pageMaker.cri.amount }">
-						</form></li>
 				</ul>
-
 			</nav>
 			<c:if test="${empty myList}">
 				<h2 class="text-center">등록된 상품이 없습니다.</h2>
@@ -105,33 +97,6 @@
 
 	<!-- 모든 컴파일된 플러그인을 포함합니다 (아래), 원하지 않는다면 필요한 각각의 파일을 포함하세요 -->
 	<script src="/bootstrap/js/bootstrap.min.js"></script>
-
-	<script type="text/javascript">
-		let moveForm = $('#moveForm');
-		onclick = 'preventClick(event)'
-
-		$("li #page").on("click", function(e) {
-			e.preventDefault();
-			moveForm.find("input[name='pageNum']").val($(this).attr("href"));
-			moveForm.attr("action", "/hand/myList");
-			moveForm.submit();
-		});
-		//글 삭제
-		function delHand(handNum){
-			if(confirm("삭제하시겠습니까?")){
-				$.ajax({
-					url: '/hand/delete',
-					data : {"handNum" : handNum},
-					type : 'GET',
-					success : function(result){
-						$("#item").remove;
-					},
-					error : function(result){
-						alert("파일을 삭제하지 못하였습니다.")
-					}
-		       });
-				}
-			}
-	</script>
+	<script src="/js/hand/hand-my-list.js" type="text/javascript"></script>
 </body>
 </html>

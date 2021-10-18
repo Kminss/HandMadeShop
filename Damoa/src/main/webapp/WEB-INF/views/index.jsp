@@ -64,7 +64,7 @@
 	</div>
 	<!-- list -->
 	<div class="container">
-		<h3>최신상품</h3>
+		<h3 class="text-center">최신상품</h3>
 		<div class="row">
 			<c:forEach var="item" items="${list}">
 				<div class="col-sm-6 col-md-3" >
@@ -79,8 +79,8 @@
 							
 							 </c:otherwise>
 						</c:choose>
-						<div class="caption">
-							<h3>${item.handTitle}</h3>
+						<div class="caption" style='text-align: center;'>
+							<h4 class="text-center">${item.handTitle}</h4>
 							<p>
 								<span class="badge badge-secondary">${item.typeName} </span>
 							</p>
@@ -102,21 +102,5 @@
 	
 	<!-- 모든 컴파일된 플러그인을 포함합니다 (아래), 원하지 않는다면 필요한 각각의 파일을 포함하세요 -->
 	<script src="/bootstrap/js/bootstrap.min.js"></script>
-	<script>
-/* 	$(document).ready(
-			function() {
-				//handType  한글로 수정 출력
-					let handTypeBadge = document.getElementsByClassName("badge badge-secondary")
-						for (var i = 0; i < handTypeBadge.length; i++) {
-							var badge = handTypeBadge[i];
-							if(badge.innerText == '1'){ badge.innerHTML = "인테리어"}
-							if(badge.innerText == '2'){ badge.innerHTML = "악세서리"}
-							if(badge.innerText == '3'){ badge.innerHTML = "가구"}
-							if(badge.innerText == '4'){ badge.innerHTML = "주방/생활"}
-							if(badge.innerText == '5'){ badge.innerHTML = "디저트"}
-							if(badge.innerText == '6'){ badge.innerHTML = "기타"}
-						}
-			}); */
-	</script>
 </body>
 </html>

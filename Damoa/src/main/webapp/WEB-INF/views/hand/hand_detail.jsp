@@ -110,19 +110,5 @@
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
 		crossorigin="anonymous"></script>
-<script>
-$(document).ready(
-		/* function() {
-			//handType  한글로 수정 출력
-				let handTypeBadge = document.getElementsByClassName("badge badge-secondary")
-						var badge = handTypeBadge[0];
-						if(badge.innerText == '1'){ badge.innerHTML = "인테리어"}
-						if(badge.innerText == '2'){ badge.innerHTML = "악세서리"}
-						if(badge.innerText == '3'){ badge.innerHTML = "가구"}
-						if(badge.innerText == '4'){ badge.innerHTML = "주방/생활"}
-						if(badge.innerText == '5'){ badge.innerHTML = "디저트"}
-						if(badge.innerText == '6'){ badge.innerHTML = "기타"}
-		}); */
-</script>
 </body>
 </html>

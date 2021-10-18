@@ -1,4 +1,4 @@
-package com.javajaba.damoa.member.dao;
+package com.javajaba.damoa.hand.dao;
 
 import java.util.Map;
 
@@ -6,7 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.javajaba.damoa.member.dto.MemberDTO;
+import com.javajaba.damoa.hand.dto.MemberDTO;
 
 @Repository
 public class MemberDAO {

@@ -1,6 +1,4 @@
 package com.javajaba.damoa.hand.control;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
-
 import java.text.DecimalFormat;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -89,7 +87,6 @@ public class HandController {
 		map.put("cri", cri);
 
 		List<HandDTO> myList = handService.getMyList(map);
-		logger.info("list......" + myList);
 		if (!myList.isEmpty()) {
 			model.addAttribute("myList", myList);
 			int total = handService.getListTotal(map);
@@ -103,7 +100,6 @@ public class HandController {
 	@RequestMapping("/update")
 	public String update(Model model,int handNum) {
 		HandDTO handDTO = handService.detail(handNum);
-		logger.info("hdt..." + handDTO);
 		model.addAttribute("handDTO", handDTO);
 		return "/hand/hand_update";
 	}
@@ -119,10 +115,11 @@ public class HandController {
 	@RequestMapping(value = "/delete")
 	@ResponseBody
 	public String delete(int handNum ) {
-
+			fileService.deleteFile(handNum);
 			int delete = handService.delete(handNum);
 			String result = "";
 			if (delete > 0) {
+				
 				result = "success";
 			} else {
 				result = "fail";

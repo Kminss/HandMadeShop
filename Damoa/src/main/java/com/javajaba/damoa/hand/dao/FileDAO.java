@@ -28,8 +28,8 @@ public class FileDAO {
 	}
 
 //파일 삭제
-	public void deleteFile(int handNum) {
-		sqlSessionTemplate.delete("deleteFile", handNum);
+	public int deleteFile(int handNum) {
+		return sqlSessionTemplate.delete("deleteFile", handNum);
 	}
 // 파일 수정
 	public void updateFile(AttachedImgDTO attachedImgDTO) {

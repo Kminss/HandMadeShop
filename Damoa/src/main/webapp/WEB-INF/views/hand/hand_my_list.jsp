@@ -57,7 +57,7 @@
 				<h2 class="text-center">등록된 상품이 없습니다.</h2>
 			</c:if>
 			<c:forEach var="item" items="${myList}">
-				<div class="col-sm-6 col-md-3">
+				<div class="col-sm-6 col-md-3" id="item">
 					<div class="thumbnail">
 						<c:choose>
 							<c:when test="${empty item.handImgList[0].fileName}">
@@ -69,15 +69,15 @@
 									src="/file/display?fileName=${fn:replace(img.uploadPath,'\\','/') }/s_${img.uuid}_${img.fileName}" />
 							</c:otherwise>
 						</c:choose>
-						<div class="caption" id="item">
+						<div class="caption">
 							<h3>${item.handTitle}</h3>
 							<p>
 								<span class="badge badge-secondary">${item.typeName} </span>
 							</p>
 							<p>
 								<a href="/hand/update?handNum=${item.handNum}"
-									class="btn btn-default" role="button">수정</a> <a href=""
-									onclick="delHand(${item.handNum});" class="btn btn-default"
+									class="btn btn-default" role="button">수정</a> <a href="javascript:return false;"
+									onclick="delHand(${item.handNum})" class="btn btn-default"
 									role="button">삭제</a> <a
 									href="/hand/detail?handNum=${item.handNum}"
 									class="btn btn-default" role="button">상세정보</a> <br>
